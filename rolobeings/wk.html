@@ -97,6 +97,7 @@
       #dot2 {
         top: 60px;
         left: calc(50% - 30px);
+        background-color: transparent;
       }
 
       #dot2::after {
@@ -125,6 +126,7 @@
       #dot3 {
         top: 60px;
         left: calc(50% + 15px);
+        background-color: #f7f7ee;
       }
 
       #dot3::after {
@@ -615,6 +617,34 @@
       </div>
     </div>
     <script>
+      // Dot nav event listeners
+      document.getElementById("dot3").addEventListener("click", () => {
+        window.parent.location.href = "https://www.rolodex.cc/wk"; // Update with your actual home page URL
+      });
+      document.getElementById("dot1").addEventListener("click", (event) => {
+        event.preventDefault();
+        // Navigate to home page
+        window.parent.location.href = "https://www.rolodex.cc/rolodex-home"; // Update with your actual home page URL
+      });
+      document.getElementById("dot2").addEventListener("click", (event) => {
+        event.preventDefault();
+        //TODO: EDIT URL HERE
+        // Navigate to about page
+        window.parent.location.href = "https://www.rolodex.cc/wk-bio"; // Update with your actual about page URL
+      });
+      // if current window, then fill in the active dot
+      if (window.location.href.includes("bio")) {
+        document.getElementById("dot2").style.backgroundColor =
+          "F7F7EE !important";
+        document.getElementById("dot3").style.backgroundColor =
+          "transaprent !important";
+      } else {
+        document.getElementById("dot3").style.backgroundColor =
+          "F7F7EE !important";
+        document.getElementById("dot2").style.backgroundColor =
+          "transparent !important";
+      }
+
       // Entry overlay
       var entryOverlay = document.getElementsByClassName("entry-overlay")[0];
       const entryDot = document.getElementById("entry-dot");

@@ -227,36 +227,43 @@
           {
             index: 3,
             name: "Elaine",
-            url: "https://www.rolodex.cc/elaine-w-ho",
-            color: "black",
+            url: "https://www.rolodex.cc/ewh",
+            color: "yellow",
           },
           {
             index: 4,
             name: "Jackie",
-            url: "https://www.rolodex.cc/jackie-vitale",
-            color: "black",
+            url: "https://www.rolodex.cc/jv",
+            color: "purple",
           },
           {
             index: 5,
             name: "Paula",
-            url: "https://www.rolodex.cc/paula",
-            color: "black",
+            url: "https://www.rolodex.cc/pps",
+            color: "orange",
           },
           {
             index: 6,
             name: "Woomin Kim",
-            url: "rolobeings/WKim.html",
+            url: "rolobeings/wk.html",
             color: "red",
           },
           {
             index: 7,
             name: "Yuchen Chang & Dong Xing",
-            url: "https://www.rolodex.cc/yuchen-chang-dong-xing",
+            url: "https://www.rolodex.cc/yc-dx",
             color: "pink",
+          },
+          {
+            index: 8,
+            name: "Elle & Qiutong",
+            url: "rolobeings/ec-qz.html",
+            color: "blue",
           },
           { index: 8, name: "", url: undefined, color: "lightgray" },
         ];
 
+        // color palette for non-rolobeing pages
         const colors = ["#8B5E3C", "#A3A847", "#5E8B7E"];
 
         // Create and append dots
@@ -270,8 +277,7 @@
             dot.style.cursor = "pointer";
           }
 
-          dot.style.backgroundColor =
-            links[i].color != null ? links[i].color : colors[i % colors.length];
+          dot.style.backgroundColor = links[i].color != null ? "black" : "gray";
 
           dot.onclick = () => {
             if (dotIsActive) {
@@ -279,9 +285,21 @@
             }
           };
 
+          dot.addEventListener("mouseover", () => {
+            if (dotIsActive) {
+              dot.style.backgroundColor =
+                links[i].color != null
+                  ? links[i].color
+                  : colors[i % colors.length];
+            }
+          });
+
           dot.addEventListener("click", () => {
             if (dotIsActive) {
-              dot.style.backgroundColor = "#27000C";
+              dot.style.backgroundColor =
+                links[i].color != null
+                  ? links[i].color
+                  : colors[i % colors.length];
             }
           });
 
