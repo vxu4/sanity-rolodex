@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -372,11 +372,13 @@
       <p>HOW DO WE FEEL ABOUT STICKERS?</p>
       <div id="entry-dot"></div>
     </div>
-    <div id="dot-nav">
+    <!-- <div id="dot-nav">
       <div class="dot" id="dot1" role="button"></div>
       <div class="dot" id="dot2" role="button"></div>
       <div class="dot" id="dot3" role="button"></div>
-    </div>
+    </div> -->
+
+    <nav-bar rolobeingName="wk" color="#f7f7ee"> </nav-bar>
     <div class="body">
       <p id="proj-description">
         In Korea, I kept thinking about our conversation; about islands as
@@ -616,34 +618,36 @@
         </span>
       </div>
     </div>
+    <script type="module" src="../components/dotnav.js"></script>
+
     <script>
-      // Dot nav event listeners
-      document.getElementById("dot3").addEventListener("click", () => {
-        window.parent.location.href = "https://www.rolodex.cc/wk"; // Update with your actual home page URL
-      });
-      document.getElementById("dot1").addEventListener("click", (event) => {
-        event.preventDefault();
-        // Navigate to home page
-        window.parent.location.href = "https://www.rolodex.cc/rolodex-home"; // Update with your actual home page URL
-      });
-      document.getElementById("dot2").addEventListener("click", (event) => {
-        event.preventDefault();
-        //TODO: EDIT URL HERE
-        // Navigate to about page
-        window.parent.location.href = "https://www.rolodex.cc/wk-bio"; // Update with your actual about page URL
-      });
+      // // Dot nav event listeners
+      // document.getElementById("dot3").addEventListener("click", () => {
+      //   window.parent.location.href = "https://www.rolodex.cc/wk"; // Update with your actual home page URL
+      // });
+      // document.getElementById("dot1").addEventListener("click", (event) => {
+      //   event.preventDefault();
+      //   // Navigate to home page
+      //   window.parent.location.href = "https://www.rolodex.cc/rolodex-home"; // Update with your actual home page URL
+      // });
+      // document.getElementById("dot2").addEventListener("click", (event) => {
+      //   event.preventDefault();
+      //   //TODO: EDIT URL HERE
+      //   // Navigate to about page
+      //   window.parent.location.href = "https://www.rolodex.cc/wk-bio"; // Update with your actual about page URL
+      // });
       // if current window, then fill in the active dot
-      if (window.location.href.includes("bio")) {
-        document.getElementById("dot2").style.backgroundColor =
-          "F7F7EE !important";
-        document.getElementById("dot3").style.backgroundColor =
-          "transaprent !important";
-      } else {
-        document.getElementById("dot3").style.backgroundColor =
-          "F7F7EE !important";
-        document.getElementById("dot2").style.backgroundColor =
-          "transparent !important";
-      }
+      // if (window.location.href.includes("bio")) {
+      //   document.getElementById("dot2").style.backgroundColor =
+      //     "F7F7EE !important";
+      //   document.getElementById("dot3").style.backgroundColor =
+      //     "transaprent !important";
+      // } else {
+      //   document.getElementById("dot3").style.backgroundColor =
+      //     "F7F7EE !important";
+      //   document.getElementById("dot2").style.backgroundColor =
+      //     "transparent !important";
+      // }
 
       // Entry overlay
       var entryOverlay = document.getElementsByClassName("entry-overlay")[0];
@@ -704,7 +708,6 @@
       // Make ref-images draggable stickers
       var refImages = document.getElementsByClassName("ref-image");
       for (let i = 0; i < refImages.length; i++) {
-        console.log(refImages[i]);
         dragElement(refImages[i]);
       }
 
@@ -723,7 +726,6 @@
         }
 
         function dragMouseDown(e) {
-          console.log("hit drag");
           e = e || window.event;
           e.preventDefault();
           // get the mouse cursor position at startup:
@@ -735,8 +737,6 @@
         }
 
         function elementDrag(e) {
-          console.log("hit elementDrag");
-
           e = e || window.event;
           e.preventDefault();
           // calculate the new cursor position:
