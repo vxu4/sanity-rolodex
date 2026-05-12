@@ -1,0 +1,47 @@
+<html>
+  <header></header>
+  <body>
+    <h1>Upload Your Avatar</h1>
+    <form id="uploadForm">
+      <input
+        id="fileInput"
+        type="file"
+        accept="image/jpeg, image/png, image/webp"
+        required
+      />
+      <button type="submit">Upload</button>
+    </form>
+
+    <div id="result"></div>
+    <script>
+      const uploadForm = document.getElementById("uploadForm");
+      const fileInput = document.getElementById("fileInput");
+      const resultDiv = document.getElementById("result");
+
+      uploadForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        // This matches the Vercel fetch logic
+        try {
+          const response = await fetch(
+            `/api/avatar/upload?filename=${file.name}`,
+            {
+              method: "POST",
+              body: file,
+            },
+          );
+
+          const newBlob = await response.json();
+
+          // Display the link
+          resultDiv.innerHTML = `<a href="${newBlob.url}" target="_blank">${newBlob.url}</a>`;
+        } catch (error) {
+          console.error("Upload failed:", error);
+        }
+      });
+    </script>
+  </body>
+</html>

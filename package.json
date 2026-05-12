@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vercel/blob": "^2.3.3",
+    "vercel": "^53.4.0"
+  }
+}
