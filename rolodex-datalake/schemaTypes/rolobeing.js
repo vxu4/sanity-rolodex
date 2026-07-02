@@ -1,5 +1,5 @@
-export const rolobeing = {
-  name: 'person',
+const rolobeing = {
+  name: 'rolobeing',
   title: 'Rolobeing Page',
   type: 'document',
   fields: [
@@ -18,15 +18,16 @@ export const rolobeing = {
       title: 'Short line',
       type: 'string',
     },
-    // {
-    //   name: 'slug',
-    //   title: 'Image URL',
-    //   type: 'slug',
-    //   options: {
-    //     source: 'name',
-    //     maxLength: 96,
-    //   },
-    // },
+    {
+      name: 'slug',
+      title: 'Slug (URL Extension)',
+      type: 'slug',
+      description: 'Click "Generate" to automatically create a unique link ID for this person.',
+      options: {
+        source: 'initals', // Tells Sanity to look at the "name" field to create the slug
+        maxLength: 96,
+      },
+    },
     {
       name: 'bio',
       title: 'Biography',
@@ -42,3 +43,5 @@ export const rolobeing = {
     },
   ],
 }
+
+export default rolobeing // <-- Clean export at the bottom

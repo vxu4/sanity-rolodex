@@ -1,3 +1,10 @@
+<!-- 
+ TODO:
+[] import fonts
+[] italics/thinness 
+[] layout/positioning  
+-->
+
 <html>
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,22 +44,6 @@
         color: black;
       }
 
-      #bios-container {
-        width: 80vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .profile-pic {
-        width: 14vw;
-      }
-
-      .footer {
-        width: 80vw;
-      }
-
       .footer-text {
         font-size: 10px !important;
         color: #9e3b1b;
@@ -73,9 +64,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 20vw;
-        text-align: center;
-        padding: 3vh 3vw;
       }
 
       .profile-pic {
@@ -84,9 +72,20 @@
     </style>
   </head>
   <body>
-    <div id="bios-container">
-      <p>Loading bio...</p>
+    <h1>name name | a bio in parts</h1>
+    <p>subheader goes here</p>
+    <div class="content-section-wrapper">
+      <div class="content-section">
+        <p>biography paragraph</p>
+        <img class="profile-pic" />
+      </div>
+      <div class="content-section">
+        <p>biography paragraph</p>
+        <img class="profile-pic" />
+      </div>
     </div>
-    <script src="./script.js"></script>
+    <div class="footer">
+      <p class="footer-text">foot text C 2020</p>
+    </div>
   </body>
 </html>
