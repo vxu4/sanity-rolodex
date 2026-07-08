@@ -4,6 +4,10 @@ const DATASET = "production";
 
 // 2. The GROQ Query (Notice the -> which extracts the people's actual data)
 const QUERY = encodeURIComponent(`*[_type == "jv-content"]{
+  name,
+  initials,
+  bioSlug,
+  color,
   prompt,
   textFragments,
   slug
@@ -32,6 +36,8 @@ entryDot.addEventListener("click", () => {
   entryOverlay.classList.add("hidden-entry-overlay");
 });
 
+const nav = document.createElement("dot-nav");
+
 const interactiveText = document.getElementsByClassName(
   "toggle-label-interactive",
 )[0];
@@ -57,6 +63,19 @@ async function fetchStories() {
   try {
     const response = await fetch(URL);
     const { result } = await response.json();
+    nav.setAttribute("color", result.color);
+    nav.setAttribute("primary-label", `${result[1].name} Rolobeing Bio`);
+    nav.setAttribute(
+      "primary-url",
+      `/rolobeings/rolobeings.html?id=$id=${result[1].initials}`,
+    );
+    nav.setAttribute("secondary-label", "Refresh Content");
+    nav.setAttribute(
+      "secondary-url",
+      `/rolobeings-content/${result[1].initials}/${result[1].initials}.html`,
+    );
+
+    document.body.appendChild(nav);
     // text = result[0].textFragments;
     for (let i = 0; i < result[1].textFragments.length; i++) {
       text.push(result[1].textFragments[i].split(/[~]/));
@@ -268,24 +287,6 @@ function displayFullEssay() {
 
 // Initialize after DOM load
 function initializeApp() {
-  // Set up event listeners
-  document.getElementById("dot1").addEventListener("click", (event) => {
-    event.preventDefault();
-    // Navigate to home page
-    window.parent.location.href = "https://www.rolodex.cc/rolodex-home"; // Update with your actual home page URL
-  });
-
-  document.getElementById("dot2").addEventListener("click", (event) => {
-    event.preventDefault();
-    // Navigate to about page
-    window.parent.location.href = "https://www.rolodex.cc/ewh-bio"; // Update with your actual about page URL
-  });
-
-  document.getElementById("dot3").addEventListener("click", (event) => {
-    event.preventDefault();
-    window.parent.location.href = "https://www.rolodex.cc/ewh";
-  });
-
   // Start the animation sequence if not clicked already
   setTimeout(() => {
     if (!hasClicked && entryClick) {

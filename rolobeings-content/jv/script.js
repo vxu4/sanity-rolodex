@@ -4,6 +4,10 @@ const DATASET = "production";
 
 // 2. The GROQ Query (Notice the -> which extracts the people's actual data)
 const QUERY = encodeURIComponent(`*[_type == "jv-content"]{
+  name,
+  initials,
+  bioSlug,
+  color,
   prompt,
   textFragments,
   images[]{
@@ -97,7 +101,19 @@ async function fetchStories() {
   try {
     const response = await fetch(URL);
     const { result } = await response.json();
-    console.log(result);
+
+    nav.setAttribute("color", result.color);
+    nav.setAttribute("primary-label", `${result[0].name} Rolobeing Bio`);
+    nav.setAttribute(
+      "primary-url",
+      `/rolobeings/rolobeings.html?id=$id=${result[0].initials}`,
+    );
+    nav.setAttribute("secondary-label", "Refresh Content");
+    nav.setAttribute(
+      "secondary-url",
+      `/rolobeings-content/${result[0].initials}/${result[0].initials}.html`,
+    );
+
     slides = result[0].textFragments;
     images = result[0].images;
     displayStories(result);
@@ -202,23 +218,6 @@ function prevSlide() {
     updateSlide();
   }
 }
-
-document.getElementById("dot3").addEventListener("click", () => {
-  window.parent.location.href = "https://www.rolodex.cc/jv"; // Refresh current page
-});
-
-// Set up event listeners
-document.getElementById("dot1").addEventListener("click", (event) => {
-  event.preventDefault();
-  // Navigate to home page
-  window.parent.location.href = "https://www.rolodex.cc/rolodex-home"; // Update with your actual home page URL
-});
-
-document.getElementById("dot2").addEventListener("click", (event) => {
-  event.preventDefault();
-  // Navigate to about page
-  window.parent.location.href = "https://www.rolodex.cc/jv-bio"; // Update with your actual about page URL
-});
 
 const interactiveText = document.getElementsByClassName(
   "toggle-label-interactive",

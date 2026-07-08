@@ -1,6 +1,6 @@
 // schemaTypes/index.js
 import rolobeing from './rolobeing'
 import bioEntry from './bioEntry'
-import jvContent from './rolobeing-content/jv'
+import rolobeingContent from './rolobeingContent'
 
-export const schemaTypes = [rolobeing, bioEntry, jvContent]
+export const schemaTypes = [rolobeing, bioEntry, rolobeingContent]
