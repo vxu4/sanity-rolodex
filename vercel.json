@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/:slug-bio",
+      "destination": "/rolobeings/index.html?id=:slug"
+    },
+    {
+      "source": "/:slug",
+      "destination": "/rolobeings-content/:slug/"
+    }
+  ]
+}

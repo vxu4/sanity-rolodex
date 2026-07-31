@@ -96,6 +96,10 @@
         overflow: hidden;
       }
 
+      p {
+        white-space: pre-line;
+      }
+
       /* Toggle styling */
       .toggle {
         display: flex;
@@ -208,6 +212,13 @@
         display: block;
       }
 
+      .blur {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        filter: blur(100px);
+      }
+
       .text-slide {
         position: absolute;
         width: 60%;
@@ -226,6 +237,57 @@
         white-space: pre-wrap;
         left: 50%;
         transform: translateX(-50%);
+      }
+
+      * Chrome,
+      Safari,
+      Edge */ .text-slide::-webkit-scrollbar {
+        width: 0px;
+        /* Completely hides scrollbar */
+      }
+
+      .text-slide::-webkit-scrollbar-thumb {
+        background: transparent;
+      }
+
+      /* Firefox */
+      .text-slide {
+        scrollbar-width: none;
+        /* Hides scrollbar */
+        -ms-overflow-style: none;
+        /* IE/Edge */
+      }
+
+      .text-slide {
+        -ms-overflow-style: none;
+        /* IE/Edge */
+        scrollbar-width: none;
+        /* Firefox */
+
+        /* Create fade effect at top & bottom */
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent,
+          black 20%,
+          black 80%,
+          transparent
+        );
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-image: linear-gradient(
+          to bottom,
+          transparent,
+          black 20%,
+          black 80%,
+          transparent
+        );
+        mask-repeat: no-repeat;
+        mask-size: 100% 100%;
+      }
+
+      .text-slide::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
       }
 
       .controls {
@@ -536,10 +598,18 @@
 
   <body>
     <script src="/components/dotnav.js"></script>
-    <div class="entry-overlay">
-      <p id="prompt-text"></p>
-      <div id="entry-dot"></div>
-    </div>
+    <script src="/components/entryDot.js"></script>
+
+    <entry-dot id="entryDot" prompt="" color=""></entry-dot>
+    <dot-nav
+      id="dotNav"
+      color=""
+      content-url=""
+      bio-url=""
+      content-label=""
+      bio-label=""
+    ></dot-nav>
+
     <div class="toggle">
       <p class="toggle-label-interactive italic">interactive read</p>
       <label class="switch">
@@ -554,7 +624,6 @@
     </div>
     <div class="slideshow-container">
       <div class="blur"><div class="blob" id="blob"></div></div>
-
       <div
         id="fish-pngs"
         style="
@@ -597,8 +666,9 @@
         "
       >
         <img
-          src="https://static.wixstatic.com/media/7ec13e_e189a16e41c640a399cdac2deeea6e61~mv2.png"
+          src=""
           class="surround-fish"
+          id="full-essay-fish-1"
           style="
             position: absolute;
             top: 15em;
@@ -610,8 +680,9 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_31dd4282b9794b72ac19eaffb2c9f5ac~mv2.png"
+          src=""
           class="surround-fish"
+          id="full-essay-fish-2"
           style="
             position: absolute;
             top: 40em;
@@ -623,8 +694,9 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_738d02c77a344fa7ac4a6e2b96a11735~mv2.png"
+          src=""
           class="surround-fish"
+          id="full-essay-fish-3"
           style="
             position: absolute;
             bottom: 15em;
@@ -636,7 +708,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_1b66107bad324284a7cfc4fde29bd95e~mv2.png"
+          src=""
+          id="full-essay-fish-4"
           class="surround-fish"
           style="
             position: absolute;
@@ -649,7 +722,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_c7e6516c14884b2a8ef001a8f0f196de~mv2.png"
+          src=""
+          id="full-essay-fish-5"
           class="surround-fish"
           style="
             position: absolute;
@@ -662,7 +736,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_528f5940b56e4f90a6349541d1c04889~mv2.png"
+          src=""
+          id="full-essay-fish-6"
           class="surround-fish"
           style="
             position: absolute;
@@ -675,7 +750,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_3f748d3a8a664ec1a600cd500283ddd8~mv2.png"
+          src=""
+          id="full-essay-fish-7"
           class="surround-fish"
           style="
             position: absolute;
@@ -688,7 +764,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_19c297e7731246c188cf269a4579713f~mv2.png"
+          src=""
+          id="full-essay-fish-8"
           class="surround-fish"
           style="
             position: absolute;
@@ -701,7 +778,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_7519089b12114df38962166accc628a4~mv2.png"
+          src=""
+          id="full-essay-fish-9"
           class="surround-fish"
           style="
             position: absolute;
@@ -714,7 +792,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_8a60038598824b3db3c116d8958be818~mv2.png"
+          src=""
+          id="full-essay-fish-10"
           class="surround-fish"
           style="
             position: absolute;
@@ -727,7 +806,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_5bff7ac9ba894f379153e604aa9f8463~mv2.png"
+          src=""
+          id="full-essay-fish-11"
           class="surround-fish"
           style="
             position: absolute;
@@ -740,7 +820,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_69768ce406e3494dad26e795576f80c0~mv2.png"
+          src=""
+          id="full-essay-fish-12"
           class="surround-fish"
           style="
             position: absolute;
@@ -753,7 +834,8 @@
         />
 
         <img
-          src="https://static.wixstatic.com/media/7ec13e_53e2cff9ba1540f380862999dac7fe56~mv2.png"
+          src=""
+          id="full-essay-fish-13"
           class="surround-fish"
           style="
             position: absolute;
@@ -770,6 +852,6 @@
         <p id="slide-text"></p>
       </div>
     </div>
-    <script src="./script.js"></script>
+    <script src="/rolobeings-content/jv/script.js"></script>
   </body>
 </html>

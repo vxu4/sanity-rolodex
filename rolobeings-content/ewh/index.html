@@ -65,7 +65,6 @@
       #rolodex-app * {
         box-sizing: border-box;
         margin: 0;
-        padding: 0;
       }
 
       #rolodex-app {
@@ -77,13 +76,12 @@
         font-variation-settings: "wdth" 100;
         padding: 0;
         width: 100%;
-        /* height: auto; */
-        height: 95vh;
+        height: 100%;
         position: relative;
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Center horizontally */
+        justify-content: flex-end; /* Center horizontally */
         align-items: flex-start; /* Align to top */
       }
 
@@ -210,15 +208,12 @@
       .container {
         display: flex;
         flex-direction: column;
-        width: 100%; /* Use full width */
+        width: 100%;
         max-width: 100%;
-        height: calc(
-          100vh - 120px
-        ); /* Adjust height based on screen minus header */
-        margin: 0 auto;
-        overflow-y: auto; /* Ensure vertical scrolling */
+        height: 88%;
+        overflow-y: auto;
         position: relative;
-        align-items: center; /* Center content horizontally */
+        align-items: center;
       }
 
       .paragraph {
@@ -258,7 +253,7 @@
         width: 96%; /* Take up almost full width */
         /* min-height: fit-content; */
         height: 100vh;
-        padding: 20px 0px 20px 0px;
+        padding: 40px 20px 100px 20px;
         overflow: visible; /* Changed from scroll to visible */
         position: relative;
         text-align: left; /* Left align text content */
@@ -385,16 +380,66 @@
           padding: 20px 5%; /* Even larger percentage padding on phones */
         }
       }
+
+      /* Fade effect for scrolling text */
+      /* Firefox */
+      .text-slide {
+        scrollbar-width: none;
+        /* Hides scrollbar */
+        -ms-overflow-style: none;
+        /* IE/Edge */
+      }
+
+      .text-slide {
+        -ms-overflow-style: none;
+        /* IE/Edge */
+        scrollbar-width: none;
+        /* Firefox */
+
+        /* Create fade effect at top & bottom */
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent,
+          black 15%,
+          black 80%,
+          transparent
+        );
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-image: linear-gradient(
+          to bottom,
+          transparent,
+          black 15%,
+          black 80%,
+          transparent
+        );
+        mask-repeat: no-repeat;
+        mask-size: 100% 100%;
+      }
+
+      .text-slide::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+      }
     </style>
   </head>
   <body id="body">
-    <script src="/components/dotnav.js"></script>
-    <div class="entry-overlay">
+    <!-- <div class="entry-overlay">
       <p class="prompt-text">A TRUTH CONSIDERED</p>
       <div id="entry-dot"></div>
-    </div>
+    </div> -->
+    <script src="/components/dotnav.js"></script>
+    <script src="/components/entryDot.js"></script>
+    <entry-dot id="entryDot" prompt="" color=""></entry-dot>
+    <dot-nav
+      id="dotNav"
+      color=""
+      content-url=""
+      bio-url=""
+      content-label=""
+      bio-label=""
+    ></dot-nav>
     <main id="rolodex-app">
-      <dot-nav></dot-nav>
       <div class="toggle">
         <p class="toggle-label-interactive italic">interactive read</p>
         <label class="switch">
@@ -403,11 +448,11 @@
         </label>
         <p class="toggle-label-essay">full essay</p>
       </div>
-      <div class="container">
+      <div class="container text-slide">
         <div class="elaine" id="fullpiece"></div>
         <div class="elaine" id="keywords"></div>
       </div>
     </main>
-    <script src="./script.js"></script>
+    <script src="/rolobeings-content/ewh/script.js"></script>
   </body>
 </html>

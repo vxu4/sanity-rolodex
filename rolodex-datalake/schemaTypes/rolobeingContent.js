@@ -57,6 +57,31 @@ const rolobeingContent = {
     // CONTENT (interactive / generative page content)
     // =================================================
     {
+      name: 'curatorialText',
+      title: 'Curatorial Text (to introduce/frame the piece)',
+      type: 'string',
+    },
+    {
+      name: 'contributorNames',
+      title: 'Contributor names (e.g. artist/author, collaborators, editor, curation, design',
+      type: 'array',
+      of: [
+        {
+          type: 'string',
+        },
+      ],
+    },
+    {
+      name: 'dateList',
+      title: 'Dates (important dates in the creation/process/publishing of the piece)',
+      type: 'array',
+      of: [
+        {
+          type: 'string',
+        },
+      ],
+    },
+    {
       name: 'textFragments',
       title: 'Text Fragments (for interactive view)',
       type: 'array',
@@ -75,6 +100,32 @@ const rolobeingContent = {
           type: 'image',
           options: {
             hotspot: true, // Allows you to crop the photo inside the Studio
+          },
+        },
+      ],
+    },
+    {
+      name: 'audio',
+      title: 'Audio files',
+      type: 'array',
+      of: [
+        {
+          type: 'file',
+          options: {
+            accept: 'audio/*',
+          },
+        },
+      ],
+    },
+    {
+      name: 'video',
+      title: 'Video files',
+      type: 'array',
+      of: [
+        {
+          type: 'file',
+          options: {
+            accept: 'video/*',
           },
         },
       ],

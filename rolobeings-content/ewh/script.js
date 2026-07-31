@@ -2,41 +2,25 @@
 const PROJECT_ID = "vgbk3y5q";
 const DATASET = "production";
 
+const slug = window.location.pathname.split("/").filter(Boolean)[0];
+
 // 2. The GROQ Query (Notice the -> which extracts the people's actual data)
-const QUERY = encodeURIComponent(`*[_type == "jv-content"]{
+const QUERY =
+  encodeURIComponent(`*[_type == "jv-content" && slug.current == "${slug}"][0]{
   name,
   initials,
   bioSlug,
   color,
   prompt,
   textFragments,
+  images[]{
+    "imageUrl": asset->url
+  },
   slug
 }`);
 
 // Change the date in your URL string to this:
 const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
-
-// Entry overlay
-// Store if user has clicked into entry dot
-let entryClick = false;
-
-var entryOverlay = document.getElementsByClassName("entry-overlay")[0];
-const entryDot = document.getElementById("entry-dot");
-entryDot.addEventListener("mouseover", () => {
-  entryDot.style.backgroundColor = "#3B5009";
-});
-entryDot.addEventListener("mouseout", () => {
-  entryDot.style.backgroundColor = "transparent";
-});
-entryDot.addEventListener("click", () => {
-  entryClick = true;
-  if (!hasClicked && entryClick) {
-    displayKeywords();
-  }
-  entryOverlay.classList.add("hidden-entry-overlay");
-});
-
-const nav = document.createElement("dot-nav");
 
 const interactiveText = document.getElementsByClassName(
   "toggle-label-interactive",
@@ -63,22 +47,22 @@ async function fetchStories() {
   try {
     const response = await fetch(URL);
     const { result } = await response.json();
-    nav.setAttribute("color", result.color);
-    nav.setAttribute("primary-label", `${result[1].name} Rolobeing Bio`);
-    nav.setAttribute(
-      "primary-url",
-      `/rolobeings/rolobeings.html?id=$id=${result[1].initials}`,
-    );
-    nav.setAttribute("secondary-label", "Refresh Content");
-    nav.setAttribute(
-      "secondary-url",
-      `/rolobeings-content/${result[1].initials}/${result[1].initials}.html`,
-    );
 
-    document.body.appendChild(nav);
-    // text = result[0].textFragments;
-    for (let i = 0; i < result[1].textFragments.length; i++) {
-      text.push(result[1].textFragments[i].split(/[~]/));
+    document.title = `${result.name}'s Content`;
+
+    const dotNav = document.getElementById("dotNav");
+    const entryDot = document.getElementById("entryDot");
+
+    dotNav.setAttribute("bio-label", `${result.name} Rolobeing Bio`);
+    dotNav.setAttribute("bio-url", `/${result.initials}-bio`);
+    dotNav.setAttribute("content-label", "Refresh Content");
+    dotNav.setAttribute("content-url", `/${result.initials}`);
+
+    entryDot.setAttribute("prompt", result.prompt);
+    entryDot.setAttribute("color", result.color);
+
+    for (let i = 0; i < result.textFragments.length; i++) {
+      text.push(result.textFragments[i].split(/[~]/));
     }
   } catch (error) {
     console.error("Error fetching family stories:", error);
@@ -178,7 +162,7 @@ function displayKeywords() {
 
   // Remove keywords after delay
   setTimeout(() => {
-    if (!hasClicked) {
+    if (!hasClicked && !fullessay) {
       document.querySelectorAll(".keyword").forEach((span, index) => {
         setTimeout(() => {
           span.classList.add("fade-out");
@@ -289,7 +273,7 @@ function displayFullEssay() {
 function initializeApp() {
   // Start the animation sequence if not clicked already
   setTimeout(() => {
-    if (!hasClicked && entryClick) {
+    if (!hasClicked) {
       displayKeywords();
     }
   }, 1000);

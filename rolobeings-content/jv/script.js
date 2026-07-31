@@ -2,8 +2,11 @@
 const PROJECT_ID = "vgbk3y5q";
 const DATASET = "production";
 
+const slug = window.location.pathname.split("/").filter(Boolean)[0];
+
 // 2. The GROQ Query (Notice the -> which extracts the people's actual data)
-const QUERY = encodeURIComponent(`*[_type == "jv-content"]{
+const QUERY =
+  encodeURIComponent(`*[_type == "jv-content" && slug.current == "${slug}"][0]{
   name,
   initials,
   bioSlug,
@@ -20,17 +23,6 @@ const QUERY = encodeURIComponent(`*[_type == "jv-content"]{
 const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
 // 4. Render the data onto your webpage
-// function displayStories(stories) {
-// const container = document.getElementById("bios-container"); // Make sure this ID exists in your HTML!
-// if (!container) return;
-// container.innerHTML = ""; // Clear out any loading text
-
-// if (!stories || stories.length === 0) {
-//   container.innerHTML =
-//     "<p>No stories found yet. Go add some in your Sanity Studio!</p>";
-//   return;
-// }
-
 // FROM WIX CODE
 let fullessay = false;
 let currentSlide = 0;
@@ -38,17 +30,17 @@ let slides = null;
 let images = null;
 
 // Entry overlay
-var entryOverlay = document.getElementsByClassName("entry-overlay")[0];
-const entryDot = document.getElementById("entry-dot");
-entryDot.addEventListener("mouseover", () => {
-  entryDot.style.backgroundColor = "#EB9514";
-});
-entryDot.addEventListener("mouseout", () => {
-  entryDot.style.backgroundColor = "transparent";
-});
-entryDot.addEventListener("click", () => {
-  entryOverlay.classList.add("hidden-entry-overlay");
-});
+// var entryOverlay = document.getElementsByClassName("entry-overlay")[0];
+// const entryDot = document.getElementById("entry-dot");
+// entryDot.addEventListener("mouseover", () => {
+//   entryDot.style.backgroundColor = "#EB9514";
+// });
+// entryDot.addEventListener("mouseout", () => {
+//   entryDot.style.backgroundColor = "transparent";
+// });
+// entryDot.addEventListener("click", () => {
+//   entryOverlay.classList.add("hidden-entry-overlay");
+// });
 
 const colors = [
   "#565147",
@@ -85,11 +77,13 @@ const blobShapes = [
   "35% 65% 45% 55% / 55% 45% 65% 35%",
 ];
 
-const promptText = document.getElementById("prompt-text");
 const blob = document.getElementById("blob");
 const slideText = document.getElementById("slide-text");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
+
+// const nav = document.createElement("dot-nav");
+// dotNav.setAttribute("contentUrl", `/${stories[0].slug.current}`);
 
 // Pause animation on hover
 nextBtn.addEventListener("mouseenter", () => {
@@ -100,22 +94,24 @@ nextBtn.addEventListener("mouseenter", () => {
 async function fetchStories() {
   try {
     const response = await fetch(URL);
+
     const { result } = await response.json();
 
-    nav.setAttribute("color", result.color);
-    nav.setAttribute("primary-label", `${result[0].name} Rolobeing Bio`);
-    nav.setAttribute(
-      "primary-url",
-      `/rolobeings/rolobeings.html?id=$id=${result[0].initials}`,
-    );
-    nav.setAttribute("secondary-label", "Refresh Content");
-    nav.setAttribute(
-      "secondary-url",
-      `/rolobeings-content/${result[0].initials}/${result[0].initials}.html`,
-    );
+    document.title = `${result.name}'s Content`;
 
-    slides = result[0].textFragments;
-    images = result[0].images;
+    const dotNav = document.getElementById("dotNav");
+    const entryDot = document.getElementById("entryDot");
+
+    dotNav.setAttribute("bio-label", `${result.name} Rolobeing Bio`);
+    dotNav.setAttribute("bio-url", `/${result.initials}-bio`);
+    dotNav.setAttribute("content-label", "Refresh Content");
+    dotNav.setAttribute("content-url", `/${result.initials}`);
+
+    entryDot.setAttribute("prompt", result.prompt);
+    entryDot.setAttribute("color", result.color);
+
+    slides = result.textFragments;
+    images = result.images;
     displayStories(result);
   } catch (error) {
     console.error("Error fetching family stories:", error);
@@ -192,7 +188,7 @@ function updateSlide() {
     blob.style.borderRadius = blobShapes[currentSlide];
     blob.style.opacity = "1";
     fish.style.opacity = "1"; // fade fish back in
-    slideText.textContent = slides[currentSlide];
+    slideText.innerHTML = slides[currentSlide];
   }
 }
 
@@ -227,12 +223,10 @@ const essayText = document.getElementsByClassName("toggle-label-essay")[0];
 // Attach event listeners after DOM loads
 function displayStories(results) {
   const inputEl = document.getElementById("myInput");
-  const slides = results[0].textFragments;
+  const slides = results.textFragments;
 
-  console.log(results);
   updateSlide();
 
-  promptText.innerText = results[0].prompt;
   // Trigger when input gets focus (selected)
   inputEl.addEventListener("click", onInputSelected);
 
@@ -253,10 +247,12 @@ function displayStories(results) {
       nextBtn.disabled = currentSlide === slides.length - 1;
     }
   }
-  console.log(results[0].images[0]);
-  for (let i = 0; i < results[0].images.length - 1; i++) {
-    document.getElementById(`fish-line-${i}`).src =
-      results[0].images[i].imageUrl;
+  for (let i = 0; i < results.images.length - 1; i++) {
+    document.getElementById(`fish-line-${i}`).src = results.images[i].imageUrl;
+    if (i > 0) {
+      document.getElementById(`full-essay-fish-${i}`).src =
+        results.images[i].imageUrl;
+    }
   }
 }
 

@@ -8,16 +8,17 @@
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TODO: Anon change to name</title>
+    <title></title>
     <style>
       body {
         background-color: #f7f7ed;
-        width: 100%;
-        height: 100%;
+        width: 99%;
+        height: 95%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
+        padding-bottom: 3vh;
       }
       h1 {
         font-family: "didot", serif;
@@ -38,6 +39,7 @@
       }
 
       #bios-container {
+        margin-top: 100px;
         width: 80vw;
         display: flex;
         flex-direction: column;
@@ -53,7 +55,7 @@
         width: 80vw;
       }
 
-      .footer-text {
+      #footer-text {
         font-size: 10px !important;
         color: #9e3b1b;
         font-family: "Noto Sans", sans-serif;
@@ -73,20 +75,32 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 20vw;
         text-align: center;
         padding: 3vh 3vw;
       }
 
       .profile-pic {
         width: 10vw;
+        margin-top: 1rem;
       }
     </style>
   </head>
   <body>
+    <script src="/components/dotnav.js"></script>
+    <dot-nav
+      id="dotNav"
+      contentUrl=""
+      contentLabel="Rolobeing Content"
+      bioUrl=""
+      bioLabel="Rolobeing Bio"
+    ></dot-nav>
+
     <div id="bios-container">
       <p>Loading bio...</p>
     </div>
-    <script src="./script.js"></script>
+    <div class="footer">
+      <p id="footer-text"></p>
+    </div>
+    <script src="/rolobeings/script.js"></script>
   </body>
 </html>
