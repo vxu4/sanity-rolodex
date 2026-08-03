@@ -8,10 +8,8 @@ const slug = window.location.pathname
   .filter(Boolean)[0]
   .replace("-bio", "");
 
-console.log("Current rolobeing:", slug);
-
 const QUERY = encodeURIComponent(`
-*[_type == "bioEntry" && slug.current == "${slug}"]{
+*[_type == "bioEntry" && slug.current == "${slug}-bio"]{
   title,
   content,
   slug,
@@ -32,9 +30,7 @@ async function fetchStories() {
   try {
     const response = await fetch(URL);
     const { result } = await response.json();
-
     displayStories(result);
-    console.log(result);
   } catch (error) {
     console.error("Error fetching family stories:", error);
   }
@@ -45,11 +41,14 @@ function displayStories(stories) {
   document.title = `${stories[0].title}'s bio`;
 
   const dotNav = document.getElementById("dotNav");
-  dotNav.setAttribute("contentUrl", `/${stories[0].slug.current}`);
-  dotNav.setAttribute("contentLabel", "Rolobeing Content");
-  dotNav.setAttribute("bioUrl", `/${stories[0].slug.current}-bio`);
-  dotNav.setAttribute("bioLabel", "Rolobeing Bio");
 
+  dotNav.setAttribute(
+    "contentUrl",
+    `/${stories[0].slug.current.split("-")[0]}`,
+  );
+  dotNav.setAttribute("contentLabel", "Rolobeing Content");
+  dotNav.setAttribute("bioUrl", `/${stories[0].slug.current}`);
+  dotNav.setAttribute("bioLabel", "Rolobeing Bio");
   const container = document.getElementById("bios-container"); // Make sure this ID exists in your HTML!
   if (!container) return;
   container.innerHTML = ""; // Clear out any loading text
@@ -73,9 +72,9 @@ function displayStories(stories) {
       .map(
         (person) => `
       <div class="content-section" style="width: ${stories.length > 1 ? "20vw" : "35vw"}">
-        ${person.quote ? `<p>"${person.quote}"</p>` : ""}
-        ${person.bio ? `<p>"${person.bio}"</p>` : ""}
-        <img class="profile-pic" src="${person.imageUrl || "default-avatar.png"}" alt="${person.name}" />
+        ${person.quote ? `<p>${person.quote}</p>` : ""}
+        ${person.bio ? `<p>${person.bio}</p>` : ""}
+        ${person.imageUrl ? `<img class="profile-pic" src="${person.imageUrl || "default-avatar.png"}" alt="${person.name}"/>` : `<br/>`}
       </div>
     `,
       )

@@ -31,18 +31,18 @@ async function fetchStories() {
     const response = await fetch(URL);
     const { result } = await response.json();
 
-    document.title = `${result[0].name}'s Content`;
+    document.title = `${result.name}'s Project`;
 
     const dotNav = document.getElementById("dotNav");
     const entryDot = document.getElementById("entryDot");
 
-    dotNav.setAttribute("bio-label", `${result[0].name} Rolobeing Bio`);
-    dotNav.setAttribute("bio-url", `/${result[0].initials}-bio`);
-    dotNav.setAttribute("content-label", "Refresh Content");
-    dotNav.setAttribute("content-url", `/${result[0].initials}`);
+    dotNav.setAttribute("bioLabel", `${result.name}'s Bio`);
+    dotNav.setAttribute("bioUrl", `/${result.initials}-bio`);
+    dotNav.setAttribute("contentLabel", "Refresh Content");
+    dotNav.setAttribute("contentUrl", `/${result.initials}`);
 
-    entryDot.setAttribute("prompt", result[0].prompt);
-    entryDot.setAttribute("color", result[0].color);
+    entryDot.setAttribute("prompt", result.prompt);
+    entryDot.setAttribute("color", result.color);
 
     displayStories(result);
   } catch (error) {
@@ -52,7 +52,7 @@ async function fetchStories() {
 
 // Attach event listeners after DOM loads
 function displayStories(results) {
-  for (let i = 0; i < results[0].images.length - 1; i++) {
+  for (let i = 0; i < results.images.length - 1; i++) {
     // document.getElementById(`fish-line-${i}`).src =
     //   results[0].images[i].imageUrl;
     if (i > 0) {

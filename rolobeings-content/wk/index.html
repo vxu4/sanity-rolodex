@@ -9,23 +9,382 @@
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TODO: change title</title>
-    <style></style>
+    <title></title>
+    <style>
+      /* header {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+      } */
+      /* body {
+        background-color: blue;
+      } */
+      video {
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .video-wrapper {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        /* overflow: hidden; */
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #proj-description {
+        width: 35vw;
+        font-family: "Noto Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 200;
+        font-size: 14px;
+        font-style: normal;
+        font-variation-settings: "wdth" 100;
+        color: white;
+        display: block;
+        position: absolute;
+        top: 2vh;
+      }
+
+      #island-01 {
+        width: 30vw;
+        position: absolute;
+        top: 15%;
+        right: 10%;
+      }
+
+      #island-02 {
+        width: 22vw;
+        position: absolute;
+        top: 37%;
+        left: 20%;
+      }
+
+      #island-03 {
+        width: 35vw;
+        position: absolute;
+        bottom: 4%;
+        left: 10%;
+      }
+
+      /* Style the Image Used to Trigger the Modal */
+      .orig-island {
+        display: block;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .orig-island:hover {
+        opacity: 0.5;
+      }
+
+      /* The Modal (background) */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 30; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: #698ba9; /* Fallback color */
+        background-color: rgba(255, 255, 255, 0.35); /* White w/ opacity */
+      }
+
+      /* Add Animation - Zoom in the Modal */
+      .modal,
+      .modal-content,
+      #caption {
+        animation-name: fadein;
+        animation-duration: 0.3s;
+      }
+      @keyframes fadein {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* The Close Button */
+      .close {
+        position: absolute;
+        top: 1vh;
+        right: 2vw;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .close:hover,
+      .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* Container used to center middle image */
+      .middle-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        height: 65vh;
+      }
+
+      .middle-image {
+        width: 55vw;
+      }
+
+      /* 100% Image Width on Smaller Screens */
+      @media screen and (max-width: 700px) {
+        .modal-content {
+          width: 100%;
+        }
+      }
+
+      /* Modal Content for each island */
+      #modal-content-01 {
+        margin: auto;
+        display: none;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      /* Modal Content for each island */
+      #modal-content-02 {
+        margin: auto;
+        display: none;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      /* Modal Content for each island */
+      #modal-content-03 {
+        margin: auto;
+        display: none;
+        width: 100vw;
+        max-width: 100vw;
+      }
+
+      .caption {
+        font-family: "Noto Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 200;
+        font-size: 14px;
+        font-style: normal;
+        font-variation-settings: "wdth" 100;
+        color: white;
+        width: 45vw;
+        position: absolute;
+        top: 1vh;
+        left: 3vw;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: left;
+      }
+
+      p {
+        font-family: "Noto Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 200;
+        font-size: 14px;
+        font-style: normal;
+        font-variation-settings: "wdth" 100;
+      }
+
+      .sticker-lineup {
+        display: flex;
+        flex-direction: row;
+        width: 58vw;
+        justify-content: space-between;
+        align-items: end;
+        position: absolute;
+        bottom: 20vh;
+        right: 5vw;
+        height: 30vh;
+      }
+
+      .ref-image {
+        width: 10vw;
+        display: block;
+        position: absolute;
+        z-index: 35;
+        cursor: pointer;
+      }
+
+      /* Sticker styling */
+      .sticker {
+        position: absolute;
+        z-index: 35;
+      }
+
+      /* Sticker add button styling */
+      .sticker-button {
+        background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+        border: 1px solid white;
+        border-radius: 4px;
+        color: white;
+        padding: 1vh 1vw;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        width: 12vw;
+        z-index: 999;
+        font-family: "Noto Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-size: 13px;
+        font-style: italic;
+        font-variation-settings: "wdth" 87.5;
+      }
+
+      @media screen and (min-width: 770px) {
+        .modal {
+          left: 5%;
+          width: 90%;
+        }
+        #proj-description {
+          left: 7vw;
+        }
+      }
+      @media screen and (min-width: 1340px) {
+        .modal {
+          left: 0;
+          width: 100%;
+        }
+        #proj-description {
+          left: 3vw;
+        }
+      }
+    </style>
   </head>
-  <body id="body">
+
+  <body>
     <script src="/components/dotnav.js"></script>
     <script src="/components/entryDot.js"></script>
+    <entry-dot id="entryDot"></entry-dot>
+    <dot-nav id="dotNav"></dot-nav>
 
-    <entry-dot id="entryDot" prompt="" color=""></entry-dot>
-    <dot-nav
-      id="dotNav"
-      color=""
-      content-url=""
-      bio-url=""
-      content-label=""
-      bio-label=""
-    ></dot-nav>
-    <!-- TODO: replace with correct initials/link -->
-    <script src="/rolobeings-content/ewh/script.js"></script>
+    <div class="body">
+      <video playsinline autoplay muted loop>
+        <source
+          id="bg-video"
+          type="video/mp4"
+          src="https://cdn.sanity.io/files/vgbk3y5q/production/bcfe68903eca21675f39f2fe27ce1db0778a5e4b.mp4"
+        />
+      </video>
+      <p id="proj-description"></p>
+      <img
+        as="image"
+        class="orig-island"
+        id="island-01"
+        alt="small green gem-island"
+      />
+      <img
+        as="image"
+        class="orig-island"
+        id="island-02"
+        alt="small brown gem-island"
+      />
+      <img
+        as="image"
+        class="orig-island"
+        id="island-03"
+        alt="large green gem-island"
+      />
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close">×</span>
+        <!-- Modal Content (The Image) -->
+        <div id="modal-content-01">
+          <div class="caption">
+            <p id="island-01-caption"></p>
+            <button
+              style="left: 60vw"
+              class="sticker-button"
+              id="sticker-button-1"
+              type="button"
+            >
+              + Add island sticker
+            </button>
+          </div>
+          <div class="middle-image-container">
+            <img class="middle-image" id="1" />
+          </div>
+          <div class="sticker-lineup" id="sticker-lineup-1">
+            <img style="left: 0vw" class="ref-image" id="ref-01-A" />
+            <img style="left: 12vw" class="ref-image" id="ref-01-B" />
+            <img style="left: 24vw" class="ref-image" id="ref-01-C" />
+            <img style="left: 36vw" class="ref-image" id="ref-01-D" />
+            <img style="left: 48vw" class="ref-image" id="ref-01-E" />
+          </div>
+        </div>
+        <div id="modal-content-02">
+          <div class="caption">
+            <p id="island-02-caption"></p>
+            <button
+              style="left: 60vw"
+              class="sticker-button"
+              id="sticker-button-2"
+              type="button"
+            >
+              + Add island sticker
+            </button>
+          </div>
+          <div class="middle-image-container">
+            <img class="middle-image" id="2" />
+          </div>
+          <div class="sticker-lineup" id="sticker-lineup-2">
+            <img style="left: 0vw" class="ref-image" id="ref-02-A" />
+            <img style="left: 12vw" class="ref-image" id="ref-02-B" />
+            <img style="left: 24vw" class="ref-image" id="ref-02-C" />
+            <img style="left: 36vw" class="ref-image" id="ref-02-D" />
+            <img style="left: 48vw" class="ref-image" id="ref-02-E" />
+          </div>
+        </div>
+        <div id="modal-content-03">
+          <div class="caption">
+            <p id="island-03-caption"></p>
+            <button
+              style="left: 60vw"
+              class="sticker-button"
+              id="sticker-button-3"
+              type="button"
+            >
+              + Add island sticker
+            </button>
+          </div>
+          <div class="middle-image-container">
+            <img class="middle-image" id="3" />
+          </div>
+          <div class="sticker-lineup" id="sticker-lineup-2">
+            <img style="left: 0vw" class="ref-image" id="ref-03-A" />
+            <img style="left: 12vw" class="ref-image" id="ref-03-B" />
+            <img style="left: 24vw" class="ref-image" id="ref-03-C" />
+            <img style="left: 36vw" class="ref-image" id="ref-03-D" />
+            <img style="left: 48vw" class="ref-image" id="ref-03-E" />
+          </div>
+        </div>
+        <span class="letter o solid-circle o1 dot-container">
+          <div class="finaldots" id="firstDotHide"></div>
+        </span>
+      </div>
+    </div>
+
+    <script src="/rolobeings-content/wk/script.js"></script>
   </body>
 </html>

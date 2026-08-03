@@ -97,16 +97,15 @@ async function fetchStories() {
 
     const { result } = await response.json();
 
-    document.title = `${result.name}'s Content`;
+    document.title = `${result.name}'s Project`;
 
     const dotNav = document.getElementById("dotNav");
     const entryDot = document.getElementById("entryDot");
+    dotNav.setAttribute("bioLabel", `${result.name}'s Bio`);
 
-    dotNav.setAttribute("bio-label", `${result.name} Rolobeing Bio`);
-    dotNav.setAttribute("bio-url", `/${result.initials}-bio`);
-    dotNav.setAttribute("content-label", "Refresh Content");
-    dotNav.setAttribute("content-url", `/${result.initials}`);
-
+    dotNav.setAttribute("bioUrl", `/${result.initials}-bio`);
+    dotNav.setAttribute("contentLabel", "Refresh Content");
+    dotNav.setAttribute("contentUrl", `/${result.initials}`);
     entryDot.setAttribute("prompt", result.prompt);
     entryDot.setAttribute("color", result.color);
 
