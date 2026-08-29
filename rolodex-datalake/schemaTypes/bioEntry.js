@@ -8,7 +8,6 @@ const bioEntry = {
       title: 'Story Title',
       type: 'string',
     },
-
     {
       name: 'peopleInvolved',
       title: 'People in this Story',
