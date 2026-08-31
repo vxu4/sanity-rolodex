@@ -179,7 +179,6 @@ async function fetchStories() {
         entryDot.setAttribute("color", result.color);
 
         herbData = result.herbData;
-        console.log("RESULTS", result);
         images = result.images;
         displayStories(result);
     } catch (error) {
@@ -207,8 +206,8 @@ const PUZZLE_HEIGHT = 850;
 // =========================================================
 
 function scalePuzzle() {
-    const availableWidth = window.innerWidth;
-    const availableHeight = window.innerHeight;
+    const availableWidth = window.innerWidth - 50;
+    const availableHeight = window.innerHeight - 50;
 
     const scaleX = availableWidth / PUZZLE_WIDTH;
     const scaleY = availableHeight / PUZZLE_HEIGHT;
@@ -259,21 +258,44 @@ let herb04counter = 0;
 let herb05counter = 0;
 let currPiece = null;
 
-function showQuotes(type) {
-    function getHerbCounter(herbIndex) {
-        switch (herbIndex) {
-            case 1:
-                return herb01counter;
-            case 2:
-                return herb02counter;
-            case 3:
-                return herb03counter;
-            case 4:
-                return herb04counter;
-            case 5:
-                return herb05counter;
-        }
+
+function hideAndShow(j, both) {
+    if (both) {
+        document.getElementById(`herb-quote-0${j}-wrapper`).classList.remove("visible");
+
+        // Wait for the fade-out to finish
+        setTimeout(() => {
+            // Change the text while invisible
+            document.getElementById(`herb-quote-0${j}`).innerHTML = herbData[j - 1].quotes[getHerbCounter(j)];
+
+            // Fade back in
+            document.getElementById(`herb-quote-0${j}-wrapper`).classList.add("visible");
+        }, 200);
+    } else {
+        //hide the quote for the herb
+        document.getElementById(`herb-quote-0${j}-wrapper`).classList.remove("visible");
+        document.getElementById(`herb-quote-0${j}`).innerHTML = "";
     }
+
+}
+
+function getHerbCounter(herbIndex) {
+    switch (herbIndex) {
+        case 1:
+            return herb01counter;
+        case 2:
+            return herb02counter;
+        case 3:
+            return herb03counter;
+        case 4:
+            return herb04counter;
+        case 5:
+            return herb05counter;
+    }
+}
+
+
+function showQuotes(type) {
 
     function incrementHerbCounter(herbIndex) {
         switch (herbIndex) {
@@ -281,7 +303,6 @@ function showQuotes(type) {
                 if (herb01counter < herbData[0].quotes.length) {
                     herb01counter++;
                 } else {
-                    console.log("hit herb 01 max");
                     herb01counter = 0;
                 }
                 break;
@@ -289,7 +310,6 @@ function showQuotes(type) {
                 if (herb02counter < herbData[1].quotes.length) {
                     herb02counter++;
                 } else {
-                    console.log("hit herb 02 max");
                     herb02counter = 0;
                 }
                 break;
@@ -297,8 +317,6 @@ function showQuotes(type) {
                 if (herb03counter < herbData[2].quotes.length) {
                     herb03counter++;
                 } else {
-                    console.log("hit herb 03 max");
-
                     herb03counter = 0;
                 }
                 break;
@@ -306,7 +324,6 @@ function showQuotes(type) {
                 if (herb04counter < herbData[3].quotes.length) {
                     herb04counter++;
                 } else {
-                    console.log("hit herb 04 max");
                     herb04counter = 0;
                 }
                 break;
@@ -314,44 +331,12 @@ function showQuotes(type) {
                 if (herb05counter < herbData[4].quotes.length) {
                     herb05counter++;
                 } else {
-                    console.log("hit herb 05 max");
                     herb05counter = 0;
                 }
                 break;
         }
     }
 
-    function hideAndShow(j, both) {
-        if (both) {
-            // make the dot and its hover elements (name and date of herb) invisible
-            herbDots[j - 1].classList.remove("visible");
-            // herbTexts[j - 1].classList.remove("visible");
-            // herbDates[j - 1].classList.remove("visible");
-            // herbTexts[j - 1].classList.add("invisible");
-            herbDots[j - 1].classList.add("invisible");
-            // herbDates[j - 1].classList.add("invisible");
-            //show the quote for the herb
-            console.log("INSIDE BOTH: adding in quote text");
-            console.log(getHerbCounter(j));
-            console.log(herbData[j - 1].quotes[getHerbCounter(j)]);
-            document.getElementById(`herb-quote-0${j}`).innerHTML = herbData[j - 1].quotes[getHerbCounter(j)];
-            document.getElementById(`herb-quote-0${j}-wrapper`).classList.remove("invisible");
-            // document.getElementById(`herb-quote-0${j}-wrapper`).classList.add("visible");
-        } else {
-            // do the reverse: hide the quote and show the dot and its hover elements (name and date of herb)
-            herbDots[j - 1].classList.remove("invisible");
-            // herbTexts[j - 1].classList.remove("invisible");
-            // herbDates[j - 1].classList.remove("invisible");
-            // herbTexts[j - 1].classList.add("visible");
-            herbDots[j - 1].classList.add("visible");
-            // herbDates[j - 1].classList.add("visible");
-            //show the quote for the herb
-            document.getElementById(`herb-quote-0${j}`).innerHTML = "";
-            document.getElementById(`herb-quote-0${j}-wrapper`).classList.add("invisible");
-            document.getElementById(`herb-quote-0${j}-wrapper`).classList.remove("visible");
-        }
-
-    }
     // [ 2 ] R: 1, 2, 3, 4, 5
     // [ 2 ] BfT: 1, 2, 4, 5
     // [ 2 ] LfT: 3, 4, 5
@@ -388,9 +373,6 @@ function showQuotes(type) {
         }
     }
     if (type == "G") {
-        console.log("G");
-        console.log("herb counters: ", herb01counter, herb02counter, herb03counter, herb04counter, herb05counter);
-
         for (let j = 1; j < herbData.length + 1; j++) {
             if (j !== 1 && j !== 3 && j !== 5) {
                 hideAndShow(j, true);
@@ -592,16 +574,8 @@ function dragElement(elmnt) {
             newLeft <= limits.leftUpperlim + SNAP_TOLERANCE;
 
         if (isCorrectPosition) {
-            console.log("SUCCESS!", elmnt.id);
-
-            // showHerbInfo(0, true);
-
             const pieceNum = Number(elmnt.id.split("-")[1]);
-
-            console.log("PIECE NUM", pieceNum);
-            console.log("CURR PIECE", currPiece);
             if ((pieceNum == 1 || pieceNum == 2) && pieceNum !== currPiece) {
-                console.log("HIT showquotes R");
                 showQuotes("R");
             } else if ((pieceNum == 3 || pieceNum == 4 || pieceNum == 7) && pieceNum !== currPiece) {
                 showQuotes("G");
@@ -680,15 +654,12 @@ function populateArchive() {
 
 
 function selectEssay(num) {
-    console.log("HIT SELECT ESSAY", num);
     selectedEssay = num;
     if (!document.getElementById(`title-${num}`).classList.contains("green-text")) {
-        console.log("HIT GREEN TEXT");
         document.getElementsByClassName("green-text")[0]?.classList.remove("green-text");
         document.getElementById(`title-${num}`).classList.add("green-text");
     }
     document.getElementById("herb-name").innerText = herbData[num].name;
-    console.log(herbData[num].name);
     document.getElementById("title-img").src = herbData[num].image[0].imageUrl;
     document.getElementById("zodiac-season").innerHTML = herbData[num].zodiac;
     document.getElementById("publish-date").innerHTML = `First published ${herbData[num].date}`;
@@ -772,8 +743,6 @@ function displayStories(results) {
     }
 
     if (herbData !== null) {
-        console.log("HIT HERB DATA NOT NULL");
-        // populateArchive()
         // -------------------------------------------------------
         // START PUZZLE
         // -------------------------------------------------------

@@ -25,6 +25,10 @@
             color: black;
         }
 
+        .body {
+            margin-left: 0.5vw;
+        }
+
         /* Entry overlay: w/ prompt and dot to click in */
         .entry-overlay {
             display: flex;
@@ -376,13 +380,11 @@
         }
 
         .invisible {
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            opacity: 0 !important;
         }
 
         .visible {
-            opacity: 1;
-            transition: opacity 0.5s ease;
+            opacity: 1 !important;
         }
 
         .show {
@@ -491,7 +493,7 @@
 
         #herb-dot-01-wrapper {
             left: 12vw;
-            top: 12vh;
+            top: 11vh;
             opacity: 1;
             transition: opacity 0.5s ease;
 
@@ -507,7 +509,7 @@
 
         #herb-dot-03-wrapper {
             left: 14vw;
-            top: 63vh;
+            top: 65vh;
             opacity: 1;
             transition: opacity 0.5s ease;
 
@@ -515,7 +517,7 @@
 
         #herb-dot-04-wrapper {
             right: 7vw;
-            top: 29vh;
+            top: 23vh;
             opacity: 1;
             transition: opacity 0.5s ease;
 
@@ -523,7 +525,7 @@
 
         #herb-dot-05-wrapper {
             right: 16vw;
-            top: 58vh;
+            top: 57vh;
             opacity: 1;
             transition: opacity 0.5s ease;
 
@@ -536,36 +538,37 @@
             justify-content: left;
             width: 30vw;
             position: absolute;
+            opacity: 0;
             transition: opacity 0.5s ease;
         }
 
         #herb-quote-01-wrapper {
             left: 4vw;
-            top: 12vh;
+            top: 19vh;
             transition: opacity 0.5s ease;
         }
 
         #herb-quote-02-wrapper {
             left: 4vw;
-            top: 38vh;
+            top: 46vh;
             transition: opacity 0.5s ease;
         }
 
         #herb-quote-03-wrapper {
             left: 4vw;
-            top: 63vh;
+            top: 73vh;
             transition: opacity 0.5s ease;
         }
 
         #herb-quote-04-wrapper {
             right: -2vw;
-            top: 29vh;
+            top: 31vh;
             transition: opacity 0.5s ease;
         }
 
         #herb-quote-05-wrapper {
             right: -2vw;
-            top: 58vh;
+            top: 65vh;
             transition: opacity 0.5s ease;
         }
 
