@@ -25,9 +25,24 @@
             color: black;
         }
 
+        #gen-body {
+            background-image: url(https://static.wixstatic.com/media/2fa7ac_e14ea4777657472b970da0e92f871751~mv2.jpg);
+            background-size: 100vw;
+            background-color: #F7F7ED;
+            /* backdrop-filter: blur(4px); Apply blur effect */
+            margin: 0;
+        }
+
         .body {
             margin-left: 0.5vw;
         }
+
+        #instruction {
+            position: absolute;
+            top: 150px;
+            left: 700px;
+        }
+
 
         /* Entry overlay: w/ prompt and dot to click in */
         .entry-overlay {
@@ -736,7 +751,7 @@
     </style>
 </head>
 
-<body>
+<body id="gen-body">
 
     <script src="/components/dotnav.js"></script>
     <script src="/components/entryDot.js"></script>
@@ -755,6 +770,7 @@
     <div class="body">
         <div id="interactive-view" class="show">
             <div id="puzzle-canvas">
+                <p id="instruction" class="subtitle" style="font-style: italic !important">let's garden</p>
                 <img id="quilt-outline" alt="Quilt outline" />
                 <div id="dots-wrapper">
                     <div class="herb-dot-wrapper" id="herb-dot-01-wrapper">
@@ -802,6 +818,7 @@
                         <p id="herb-quote-05"></p>
                     </div>
                 </div>
+
             </div>
         </div>
         <div id="archive-view" class="hidden">
@@ -810,7 +827,6 @@
                 <div id="essay-wrapper">
                     <p id="herb-name" class="subtitle">Dandelion</p>
                     <img id="title-img" src="" alt="" class="herb-image" />
-                    <p class="subtitle" id="zodiac-season"></p>
                     <br />
                     <br />
                     <p class="label-text" id="publish-date">First published June 12th, 2024</p>

@@ -178,7 +178,7 @@ async function fetchStories() {
         entryDot.setAttribute("prompt", result.prompt);
         entryDot.setAttribute("color", result.color);
 
-        herbData = result.herbData;
+        herbData = result.herbData.reverse();
         images = result.images;
         displayStories(result);
     } catch (error) {
@@ -215,7 +215,7 @@ function scalePuzzle() {
     const scale = Math.min(scaleX, scaleY);
 
     // Screen-space adjustment
-    const puzzleXOffset = -30;
+    const puzzleXOffset = -20;
     const puzzleYOffset = 0;
 
     puzzleCanvas.style.transform = `
@@ -240,6 +240,8 @@ function showHerbInfo(i, show) {
 
         herbTexts[i].classList.add("visible");
         herbDates[i].classList.add("visible");
+        document.getElementById(`herb-quote-0${i + 1}-wrapper`).classList.add("invisible");
+        document.getElementById(`herb-quote-0${i + 1}-wrapper`).classList.remove("visible");
     } else {
 
         herbDots[i].style.backgroundColor = "transparent";
@@ -249,6 +251,12 @@ function showHerbInfo(i, show) {
 
         herbTexts[i].classList.add("invisible");
         herbDates[i].classList.add("invisible");
+
+        if (document.getElementById(`herb-quote-0${i + 1}`).innerHTML !== "") {
+            document.getElementById(`herb-quote-0${i + 1}-wrapper`).classList.remove("invisible");
+            document.getElementById(`herb-quote-0${i + 1}-wrapper`).classList.add("visible");
+
+        }
     }
 }
 let herb01counter = 0;
@@ -632,7 +640,9 @@ function populateArchive() {
         index.innerHTML += title;
 
     }
-    for (let i = 0; i < herbData.length; i++) {
+    index.innerHTML += `<p style="margin-top: 0;">_______________</p>`;
+    index.innerHTML += `<p id="title-${herbData.length}" class="index-title subtitle">Pinwheel</p>`;
+    for (let i = 0; i < herbData.length + 1; i++) {
         document.getElementById(`title-${i}`).addEventListener("mouseover", () => {
             document.getElementById(`title-${i}`).classList.add("green-text");
         });
@@ -640,7 +650,6 @@ function populateArchive() {
             if (selectedEssay !== i) {
                 document.getElementById(`title-${i}`).classList.remove("green-text");
             }
-            // document.getElementsByClassName("green-text")[0]?.classList.remove("green-text");
         });
         document.getElementById(`title-${i}`).addEventListener("click", () => {
             document.getElementById(`title-${selectedEssay}`).classList.remove("green-text");
@@ -654,42 +663,55 @@ function populateArchive() {
 
 
 function selectEssay(num) {
+    if (num === herbData.length) {
+        document.getElementById("essay-wrapper").innerHTML = `<div style="display: flex; flex-direction: column; align-items: center;">           <p id="herb-name" class="subtitle">Pinwheel</p>
+<img style="height: 45vh" src="https://static.wixstatic.com/media/2fa7ac_b7717354984c402bb4bdad2171cf8e75~mv2.jpg" alt="Pinwheel" /> <p class='body-text' style="margin-top: 9vh;">This quilt square is part of a larger quilt made in a 2024 collaboration between Diana Nucera and Miranda Zhen-Yao Van-Boswell. </p></div>`;
+    } else {
+        if (!document.getElementById(`title-${num}`).classList.contains("green-text")) {
+            document.getElementsByClassName("green-text")[0]?.classList.remove("green-text");
+            document.getElementById(`title-${num}`).classList.add("green-text");
+        }
+        if (selectedEssay === herbData.length) {
+            document.getElementById("essay-wrapper").innerHTML = `<p id="herb-name" class="subtitle">Dandelion</p>
+          <img id="title-img" src="" alt=' ' class="herb-image" />
+          <br />
+          <br />
+          <p class="label-text" id="publish-date">First published June 12th, 2024</p>
+          <div id="herb-content">
+          </div>`;
+        }
+        document.getElementById("herb-name").innerText = herbData[num].name;
+        document.getElementById("title-img").src = herbData[num].image[0].imageUrl;
+        document.getElementById("publish-date").innerHTML = `First published ${herbData[num].date}`;
+
+        const herbContent = document.getElementById("herb-content");
+        herbContent.innerHTML = "";
+        let textArrayNum = 0
+        let imgArrayNum = 1
+        let captionArrayNum = 0
+
+        for (let i = 0; i < herbData[num].mapping.length; i += 2) {
+            if (herbData[num].mapping[i] == "text") {
+                for (let a = 0; a < herbData[num].mapping[i + 1]; a++) {
+                    herbContent.innerHTML += `<p class="body-text">${herbData[num].text[textArrayNum]}</p>`;
+                    textArrayNum++;
+                }
+            }
+            if (herbData[num].mapping[i] == "image") {
+                for (let b = 0; b < herbData[num].mapping[i + 1]; b++) {
+                    herbContent.innerHTML += `<img class="body-img" src=${herbData[num].image[imgArrayNum].imageUrl} />`;
+                    imgArrayNum++;
+                }
+            }
+            if (herbData[num].mapping[i] == "caption") {
+                for (let c = 0; c < herbData[num].mapping[i + 1]; c++) {
+                    herbContent.innerHTML += `<p class="caption-text">${herbData[num].caption[captionArrayNum]}</p>`;
+                    captionArrayNum++;
+                }
+            }
+        }
+    }
     selectedEssay = num;
-    if (!document.getElementById(`title-${num}`).classList.contains("green-text")) {
-        document.getElementsByClassName("green-text")[0]?.classList.remove("green-text");
-        document.getElementById(`title-${num}`).classList.add("green-text");
-    }
-    document.getElementById("herb-name").innerText = herbData[num].name;
-    document.getElementById("title-img").src = herbData[num].image[0].imageUrl;
-    document.getElementById("zodiac-season").innerHTML = herbData[num].zodiac;
-    document.getElementById("publish-date").innerHTML = `First published ${herbData[num].date}`;
-
-    const herbContent = document.getElementById("herb-content");
-    herbContent.innerHTML = "";
-    let textArrayNum = 0
-    let imgArrayNum = 1
-    let captionArrayNum = 0
-
-    for (let i = 0; i < herbData[num].mapping.length; i += 2) {
-        if (herbData[num].mapping[i] == "text") {
-            for (let a = 0; a < herbData[num].mapping[i + 1]; a++) {
-                herbContent.innerHTML += `<p class="body-text">${herbData[num].text[textArrayNum]}</p>`;
-                textArrayNum++;
-            }
-        }
-        if (herbData[num].mapping[i] == "image") {
-            for (let b = 0; b < herbData[num].mapping[i + 1]; b++) {
-                herbContent.innerHTML += `<img class="body-img" src=${herbData[num].image[imgArrayNum].imageUrl} />`;
-                imgArrayNum++;
-            }
-        }
-        if (herbData[num].mapping[i] == "caption") {
-            for (let c = 0; c < herbData[num].mapping[i + 1]; c++) {
-                herbContent.innerHTML += `<p class="caption-text">${herbData[num].caption[captionArrayNum]}</p>`;
-                captionArrayNum++;
-            }
-        }
-    }
 }
 
 
@@ -719,6 +741,7 @@ function displayStories(results) {
 
             interactiveView.classList.remove("show");
             interactiveView.classList.add("hidden");
+            document.getElementById("gen-body").style.backgroundImage = "url()";
 
             populateArchive();
 
@@ -733,6 +756,7 @@ function displayStories(results) {
 
             archiveView.classList.remove("show");
             archiveView.classList.add("hidden");
+            document.getElementById("gen-body").style.backgroundImage = "url(https://static.wixstatic.com/media/2fa7ac_e14ea4777657472b970da0e92f871751~mv2.jpg)";
 
             interactiveView.classList.remove("hidden");
             interactiveView.classList.add("show");

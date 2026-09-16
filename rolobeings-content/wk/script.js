@@ -51,7 +51,7 @@ async function fetchStories() {
     entryDot.setAttribute("prompt", result.prompt);
     entryDot.setAttribute("color", result.color);
 
-    document.images = result.images;
+    images = result.images;
 
     displayStories(result);
   } catch (error) {
@@ -85,7 +85,7 @@ function displayStories(results) {
     "ref-03-E",
   ];
 
-  for (let i = 0; i < results.images.length - 1; i++) {
+  for (let i = 0; i < results.images.length; i++) {
     // document.getElementById(`fish-line-${i}`).src =
     //   results[0].images[i].imageUrl;
     document.getElementById(imgIdList[i]).src = results.images[i].imageUrl;
@@ -97,7 +97,7 @@ function displayStories(results) {
     "island-02-caption",
     "island-03-caption",
   ];
-  for (let i = 0; i < results.textFragments.length - 1; i++) {
+  for (let i = 0; i < results.textFragments.length; i++) {
     document.getElementById(textIdList[i]).innerHTML = results.textFragments[i];
   }
 }
@@ -130,6 +130,8 @@ island03.onclick = function () {
 };
 
 function modalTrigger(num) {
+  const dotNav = document.getElementById("dotNav");
+
   modal.style.display = "block";
   if (num == 1) {
     modalContent01.style.display = "block";
@@ -139,6 +141,7 @@ function modalTrigger(num) {
     modalContent03.style.display = "block";
   }
   projDescription.style.display = "none";
+  dotNav.style.display = "none";
   origIsland01.style.display = "none";
   origIsland02.style.display = "none";
   origIsland03.style.display = "none";
@@ -225,7 +228,7 @@ stickerButtonC.addEventListener("click", function () {
 // Generating stickers with button
 function generateStickers(num) {
   executed = true;
-  const stickersrcs = [images[0].src, images[1].src, images[2].src];
+  const stickersrcs = [images[0].imageUrl, images[1].imageUrl, images[2].imageUrl];
   const finaldots = document.querySelectorAll(".finaldots");
   const container = document.querySelector(".dot-container");
   // Create and append sticker
