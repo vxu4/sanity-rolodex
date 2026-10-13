@@ -29,7 +29,6 @@ async function fetchStories() {
     try {
         const response = await fetch(URL);
         const { result } = await response.json();
-        console.log("Result:", result);
 
         document.title = `${result.name}'s Project`;
 
@@ -52,8 +51,7 @@ async function fetchStories() {
 
 // Attach event listeners after DOM loads
 function displayStories(results) {
-    for (let i = 2; i < results.images.length - 1; i++) {
-        console.log("Image URL:", results.images[i].imageUrl);
+    for (let i = 2; i < results.images.length; i++) {
         document.getElementById(`img-${i}`).src = results.images[i].imageUrl;
     }
 }
@@ -91,12 +89,12 @@ window.addEventListener("load", () => {
             debounce(handleScroll, 1000);
             const scrollY =
                 document.getElementsByClassName("body")[0].scrollTop;
-            let pt1_2 = 1300;
+            let pt1_2 = 1050;
             let pt2_greenShimmer = 1500;
             let pt2_3 = 2500;
             let pt3_graphicDisappear = 3000;
             let pt3_biyiniao = 2900;
-            let pt3_biyiniaoDisappear = 3100;
+            let pt3_biyiniaoDisappear = 3250;
 
             if (window.innerWidth > 1279) {
                 pt1_2 = 800;
@@ -113,7 +111,6 @@ window.addEventListener("load", () => {
                 pt3_biyiniao = 2800;
                 pt3_biyiniaoDisappear = 3000;
             }
-
             if (scrollY > pt1_2) {
                 // change bg image to yel
                 // low horizon film
@@ -127,7 +124,7 @@ window.addEventListener("load", () => {
                     .classList.add("visible");
                 // fade out opacity gradient
                 document
-                    .getElementsByClassName("gradient-blur")[0]
+                    .getElementById("gradient-blur")
                     .classList.add("hidden");
                 //make green text flash/sparkle
                 document
@@ -140,7 +137,7 @@ window.addEventListener("load", () => {
             if (scrollY < pt1_2) {
                 document.getElementsByClassName("bg-2")[0].style.opacity = 0;
                 document
-                    .getElementsByClassName("gradient-blur")[0]
+                    .getElementById("gradient-blur")
                     .classList.add("visible");
             }
             //remove green text flash/sparkle after scrolling down 200px within Pt 2
