@@ -693,23 +693,8 @@
             justify-content: flex-start;
             height: 100vh;
             overflow: scroll;
-            margin-top: 20vh;
-            padding: 0px 10px;
-            /* Create fade effect at top & bottom */
-            -webkit-mask-image: linear-gradient(to bottom,
-                    transparent,
-                    black 5%,
-                    black 80%,
-                    transparent);
-            -webkit-mask-repeat: no-repeat;
-            -webkit-mask-size: 100% 100%;
-            mask-image: linear-gradient(to bottom,
-                    transparent,
-                    black 5%,
-                    black 80%,
-                    transparent);
-            mask-repeat: no-repeat;
-            mask-size: 100% 100%;
+            padding: 2rem 1rem;
+
         }
 
         #essay-wrapper {
@@ -755,6 +740,7 @@
 
     <script src="/components/dotnav.js"></script>
     <script src="/components/entryDot.js"></script>
+    <script src="/components/scrollFade.js"></script>
 
     <entry-dot id="entryDot"></entry-dot>
     <dot-nav id="dotNav"></dot-nav>
@@ -823,17 +809,19 @@
         </div>
         <div id="archive-view" class="hidden">
             <div id="archive-index"></div>
-            <div id="herb-wrapper">
-                <div id="essay-wrapper">
-                    <p id="herb-name" class="subtitle">Dandelion</p>
-                    <img id="title-img" src="" alt="" class="herb-image" />
-                    <br />
-                    <br />
-                    <p class="label-text" id="publish-date">First published June 12th, 2024</p>
-                    <div id="herb-content">
+            <fade-scroll>
+                <div id="herb-wrapper">
+                    <div id="essay-wrapper">
+                        <p id="herb-name" class="subtitle">Dandelion</p>
+                        <img id="title-img" src="" alt="" class="herb-image" />
+                        <br />
+                        <br />
+                        <p class="label-text" id="publish-date">First published June 12th, 2024</p>
+                        <div id="herb-content">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </fade-scroll>
         </div>
     </div>
     <script src="/rolobeings-content/mzyvb/script.js"></script>

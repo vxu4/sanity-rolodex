@@ -79,16 +79,23 @@ const blobShapes = [
 
 const blob = document.getElementById("blob");
 const slideText = document.getElementById("slide-text");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
+const controls = document.getElementById("slideControls");
+controls.prevAction = prevSlide;
+controls.nextAction = nextSlide;
 
-// const nav = document.createElement("dot-nav");
-// dotNav.setAttribute("contentUrl", `/${stories[0].slug.current}`);
+function nextSlide() {
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    updateSlide();
+  }
+}
 
-// Pause animation on hover
-nextBtn.addEventListener("mouseenter", () => {
-  nextBtn.classList.add("paused");
-});
+function prevSlide() {
+  if (currentSlide > 0) {
+    currentSlide--;
+    updateSlide();
+  }
+}
 
 // Fetch the data when the page loads
 async function fetchStories() {
@@ -129,8 +136,8 @@ function updateSlide() {
     colors[Math.min(currentSlide, colors.length - 1)];
   blob.style.borderRadius =
     blobShapes[Math.min(currentSlide, blobShapes.length - 1)];
-  prevBtn.disabled = currentSlide === 0;
-  nextBtn.disabled = currentSlide === slides.length - 1;
+  controls.prevDisabled = currentSlide === 0;
+  controls.nextDisabled = currentSlide === slides.length - 1;
   updateFish();
   const fish = document.getElementById("fish-pngs");
 
@@ -199,20 +206,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-function nextSlide() {
-  nextBtn.classList.remove("pulse");
-  if (currentSlide < slides.length - 1) {
-    currentSlide++;
-    updateSlide();
-  }
-}
 
-function prevSlide() {
-  if (currentSlide > 0) {
-    currentSlide--;
-    updateSlide();
-  }
-}
 
 const interactiveText = document.getElementsByClassName(
   "toggle-label-interactive",
@@ -231,19 +225,19 @@ function displayStories(results) {
 
   // Function to run when input is selected (focused)
   function onInputSelected() {
-    nextBtn.classList.remove("pulse");
+    // nextBtn.classList.remove("pulse");
     fullessay = !fullessay;
     updateSlide();
     if (fullessay) {
       essayText.classList.add("italic");
       interactiveText.classList.remove("italic");
-      prevBtn.disabled = true;
-      nextBtn.disabled = true;
+      controls.prevDisabled = true;
+      controls.nextDisabled = true;
     } else {
       essayText.classList.remove("italic");
       interactiveText.classList.add("italic");
-      prevBtn.disabled = currentSlide === 0;
-      nextBtn.disabled = currentSlide === slides.length - 1;
+      controls.prevDisabled = currentSlide === 0;
+      controls.nextDisabled = currentSlide === slides.length - 1;
     }
   }
   for (let i = 0; i < results.images.length - 1; i++) {
