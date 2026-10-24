@@ -10,32 +10,32 @@
 
 
 class DotControls extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: "open" });
 
-        this.state = {
-            prevDisabled: false,
-            nextDisabled: false,
-            pulse: true,
-        };
+    this.state = {
+      prevDisabled: false,
+      nextDisabled: false,
+      pulse: true,
+    };
 
-        // Functions passed in by the parent
-        this.prevAction = null;
-        this.nextAction = null;
-    }
+    // Functions passed in by the parent
+    this.prevAction = null;
+    this.nextAction = null;
+  }
 
-    connectedCallback() {
-        this.render();
-        this.attachEvents();
-        this.update();
-    }
+  connectedCallback() {
+    this.render();
+    this.attachEvents();
+    this.update();
+  }
 
-    render() {
-        const template = document.createElement("template");
+  render() {
+    const template = document.createElement("template");
 
-        template.innerHTML = `
+    template.innerHTML = `
       <style>
         .controls {
           position: absolute;
@@ -120,70 +120,68 @@ class DotControls extends HTMLElement {
       </div>
     `;
 
-        this.shadowRoot.appendChild(
-            template.content.cloneNode(true)
-        );
-    }
+    this.shadowRoot.appendChild(
+      template.content.cloneNode(true)
+    );
+  }
 
-    attachEvents() {
-        const prevBtn = this.shadowRoot.getElementById("prevBtn");
-        const nextBtn = this.shadowRoot.getElementById("nextBtn");
+  attachEvents() {
+    const prevBtn = this.shadowRoot.getElementById("prevBtn");
+    const nextBtn = this.shadowRoot.getElementById("nextBtn");
 
-        prevBtn.addEventListener("click", () => {
-            if (prevBtn.disabled) return;
+    prevBtn.addEventListener("click", () => {
+      if (prevBtn.disabled) return;
 
-            if (typeof this.prevAction === "function") {
-                this.prevAction();
-            }
-        });
+      if (typeof this.prevAction === "function") {
+        this.prevAction();
+      }
+    });
 
-        nextBtn.addEventListener("click", () => {
-            if (nextBtn.disabled) return;
+    nextBtn.addEventListener("click", () => {
+      if (nextBtn.disabled) return;
 
-            nextBtn.classList.remove("pulse");
-            console.log("Next button clicked");
+      nextBtn.classList.remove("pulse");
 
-            if (typeof this.nextAction === "function") {
-                this.nextAction();
-            }
-        });
+      if (typeof this.nextAction === "function") {
+        this.nextAction();
+      }
+    });
 
-        nextBtn.addEventListener("mouseenter", () => {
-            if (!nextBtn.disabled) {
-                console.log(nextBtn.classList);
-                nextBtn.classList.remove("pulse");
-                nextBtn.classList.add("paused");
-            }
-        });
-    }
+    nextBtn.addEventListener("mouseenter", () => {
+      if (!nextBtn.disabled) {
+        nextBtn.classList.remove("pulse");
+        nextBtn.classList.add("paused");
+      }
+    });
+  }
 
-    set prevDisabled(value) {
-        this.state.prevDisabled = value;
-        this.update();
-    }
+  set prevDisabled(value) {
+    this.state.prevDisabled = value;
+    this.update();
+  }
 
-    get prevDisabled() {
-        return this.state.prevDisabled;
-    }
+  get prevDisabled() {
+    return this.state.prevDisabled;
+  }
 
-    set nextDisabled(value) {
-        this.state.nextDisabled = value;
-        this.update();
-    }
+  set nextDisabled(value) {
+    this.state.nextDisabled = value;
+    this.update();
+  }
 
-    get nextDisabled() {
-        return this.state.nextDisabled;
-    }
+  get nextDisabled() {
+    return this.state.nextDisabled;
+  }
 
-    update() {
-        const prevBtn = this.shadowRoot.getElementById("prevBtn");
-        const nextBtn = this.shadowRoot.getElementById("nextBtn");
+  update() {
+    const prevBtn = this.shadowRoot.getElementById("prevBtn");
+    const nextBtn = this.shadowRoot.getElementById("nextBtn");
 
-        prevBtn.disabled = this.state.prevDisabled;
-        nextBtn.disabled = this.state.nextDisabled;
+    prevBtn.disabled = this.state.prevDisabled;
+    nextBtn.disabled = this.state.nextDisabled;
 
-        // nextBtn.classList.toggle("pulse", this.state.pulse);
-    }
+    // nextBtn.classList.toggle("pulse", this.state.pulse);
+  }
 }
 
 customElements.define("dot-controls", DotControls);

@@ -82,6 +82,8 @@ window.addEventListener("load", () => {
             .classList.add("visible");
     }
 
+    const shimmers = document.querySelectorAll("shimmer-effect");
+
     //initiating debounce code, as well as Part 2 transitions
     document
         .getElementsByClassName("body")[0]
@@ -127,12 +129,8 @@ window.addEventListener("load", () => {
                     .getElementById("gradient-blur")
                     .classList.add("hidden");
                 //make green text flash/sparkle
-                document
-                    .getElementsByClassName("green-text")[0]
-                    .classList.add("effect-shine");
-                document
-                    .getElementsByClassName("green-text")[1]
-                    .classList.add("effect-shine");
+                shimmers[0].toggleAttribute("active", true); // Turn on
+                shimmers[1].toggleAttribute("active", true); // Turn on
             }
             if (scrollY < pt1_2) {
                 document.getElementsByClassName("bg-2")[0].style.opacity = 0;
@@ -142,12 +140,8 @@ window.addEventListener("load", () => {
             }
             //remove green text flash/sparkle after scrolling down 200px within Pt 2
             if (scrollY > pt2_greenShimmer) {
-                document
-                    .getElementsByClassName("green-text")[0]
-                    .classList.remove("effect-shine");
-                document
-                    .getElementsByClassName("green-text")[1]
-                    .classList.remove("effect-shine");
+                shimmers[0].toggleAttribute("active", false); // Turn off
+                shimmers[1].toggleAttribute("active", false); // Turn off
             }
             // make graphic spiral visible for a 500px gap
             if (pt2_3 < scrollY || scrollY < pt3_graphicDisappear) {

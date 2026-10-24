@@ -133,7 +133,6 @@ class dotNav extends HTMLElement {
     for (let i = 0; i < tooltips.length; i++) {
       tooltips[i].style.backgroundColor =
         this.state.color == "white" ? "white" : "black";
-      console.log(tooltips[i].style.backgroundColor);
       tooltips[i].style.color = this.state.color == "white" ? "black" : "white";
     }
 

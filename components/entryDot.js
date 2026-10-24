@@ -58,7 +58,7 @@ class entryDot extends HTMLElement {
           font-size: 14px;
           font-style: normal;
           font-variation-settings: "wdth" 100;
-          color: black;
+          color: var(--black);
         }
 
         #entry-overlay {
@@ -73,7 +73,7 @@ class entryDot extends HTMLElement {
           width: 100vw;
           height: 100vh;
           overflow: auto;
-          background-color: rgba(247,247,237,.95);
+          background-color: var(--yellow-95);
           transition: opacity 1s ease;
         }
 
@@ -86,7 +86,7 @@ class entryDot extends HTMLElement {
           font-family: "Noto Sans", sans-serif;
           font-weight: 300;
           font-size: 15px;
-          color: black;
+          color: var(--black);
         }
 
         #prompt {
@@ -127,7 +127,7 @@ class entryDot extends HTMLElement {
         .pulsing-circle {
           width: 15px;
           height: 15px;
-          background: #595959;
+          background: var(--grey);
           border-radius: 50%;
           animation: pulse 2.5s infinite;
         }

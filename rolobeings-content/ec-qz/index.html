@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="../../global.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,7 +26,7 @@
             font-size: 14px;
             font-style: normal;
             font-variation-settings: "wdth" 100;
-            color: black;
+            color: var(--black);
         }
 
         @media screen and (min-width: 1920px) {
@@ -79,7 +80,7 @@
         }
 
         .green-text {
-            color: #298421 !important;
+            color: var(--ec-qz-green) !important;
         }
 
         /* effect-shine */
@@ -157,177 +158,6 @@
             /* Handle color on hover */
         }
 
-        /* Entry overlay: w/ prompt and dot to click in */
-        .entry-overlay {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            z-index: 888;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: auto;
-            background-color: #f7f7ed;
-            opacity: 1;
-            /* Fully visible */
-            transition: opacity 1.5s ease;
-            /* Smooth fade-out effect */
-        }
-
-        .hidden-entry-overlay {
-            opacity: 0;
-            pointer-events: none;
-            /* Prevent interaction */
-        }
-
-        .prompt-text {
-            font-family: "Noto Sans", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 300;
-            font-size: 14px;
-            font-style: normal;
-            font-variation-settings: "wdth" 87.5;
-            color: black;
-        }
-
-        #entry-dot {
-            width: 15px;
-            height: 15px;
-            background-color: transparent;
-            border: 1px solid black;
-            border-radius: 50%;
-            /* cursor: url(https://static.wixstatic.com/shapes/2fa7ac_4b1d5c5c302f43509ef59d4190756e09.svg),
-          pointer; */
-            cursor: pointer;
-            transition: background-color 0.5s ease;
-            /* Smooth fade-out effect */
-        }
-
-        .dot-nav {
-            height: 100px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            padding: 20px;
-        }
-
-        .dot {
-            position: absolute;
-            height: 15px;
-            width: 15px;
-            background-color: transparent;
-            border: 1px solid white;
-            border-radius: 50%;
-            /* cursor: url(https://static.wixstatic.com/shapes/2fa7ac_4b1d5c5c302f43509ef59d4190756e09.svg),
-          pointer; */
-            cursor: pointer;
-            z-index: 999;
-        }
-
-        /* Positioning the dots in a triangle formation */
-        #dot1 {
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        #dot1::after {
-            content: "Rolodex Homepage";
-            font-family: "Noto Sans", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 200;
-            font-size: 10px;
-            font-style: normal;
-            font-variation-settings: "wdth" 75;
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(10%);
-            background-color: white;
-            color: black;
-            padding: 4px 8px;
-            border-radius: 5px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            pointer-events: none;
-            z-index: 15;
-        }
-
-        #dot1:hover::after {
-            opacity: 1;
-        }
-
-        #dot2 {
-            top: 60px;
-            left: calc(50% - 30px);
-            background-color: transparent;
-        }
-
-        #dot2::after {
-            content: "Elle Cheng and Qiutong Zhai's Bio";
-            font-family: "Noto Sans", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 200;
-            font-size: 10px;
-            font-style: normal;
-            font-variation-settings: "wdth" 75;
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-110%);
-            background-color: white;
-            color: black;
-            padding: 4px 8px;
-            border-radius: 5px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            pointer-events: none;
-            z-index: 15;
-        }
-
-        #dot2:hover::after {
-            opacity: 1;
-        }
-
-        #dot3 {
-            top: 60px;
-            left: calc(50% + 15px);
-            background-color: #f7f7ed;
-        }
-
-        #dot3::after {
-            content: "Refresh Content";
-            font-family: "Noto Sans", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 200;
-            font-size: 10px;
-            font-style: normal;
-            font-variation-settings: "wdth" 75;
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(10%);
-            background-color: white;
-            color: black;
-            padding: 4px 8px;
-            border-radius: 5px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            pointer-events: none;
-            z-index: 15;
-        }
-
-        #dot3:hover::after {
-            opacity: 1;
-        }
-
         /* Element specific styling */
 
         .bg-2 {
@@ -362,7 +192,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* padding: 40vh 23vw 0vh; */
             padding: 19rem 20rem 0rem;
             position: relative;
             z-index: 333;
@@ -439,7 +268,7 @@
 
         #part2-left-green {
             text-align: right;
-            color: green;
+            color: var(--ec-qz-green);
             width: 8rem;
             /* left: 9rem; */
             font-size: 10px;
@@ -449,7 +278,7 @@
 
         #part2-right-green {
             text-align: right;
-            color: green;
+            color: var(--ec-qz-green);
             width: 8rem;
             font-size: 10px;
             padding: 0.2rem 0.4rem;
@@ -877,6 +706,7 @@
     <script src="/components/dotnav.js"></script>
     <script src="/components/entryDot.js"></script>
     <script src="/components/gradientBlur.js"></script>
+    <script src="/components/shimmerEffect.js"></script>
 
     <entry-dot id="entryDot"></entry-dot>
     <dot-nav id="dotNav"></dot-nav>
@@ -970,11 +800,13 @@
             <div class="part2">
                 <div id="part2-A">
                     <div id="part2-A-left">
-                        <p id="part2-left-green" class="green-text">
-                            1.3521° N, 103.8198° E <br />
-                            98.57% land, 1.43% water <br />15m above sea level<br />
-                            21.43% of land is forest area <br />9:51pm
-                        </p>
+                        <shimmer-effect>
+                            <p id="part2-left-green" class="green-text">
+                                1.3521° N, 103.8198° E <br />
+                                98.57% land, 1.43% water <br />15m above sea level<br />
+                                21.43% of land is forest area <br />9:51pm
+                            </p>
+                        </shimmer-effect>
                         <div class="part2-left">
                             <p id="pt2-a-1" class="text-justify">
                                 She is walking down the concrete side walk. Her mind is fuzzy
@@ -1015,11 +847,13 @@
                     </div>
                     <!-- <div id="part2-separator"></div> -->
                     <div id="part2-A-right">
-                        <p id="part2-right-green" class="green-text">
-                            35.7401° N, 139.6924° E <br />northwestern Ring of Fire
-                            <br />surrounded by seas <br />40 m above sea level
-                            <br />10:51pm
-                        </p>
+                        <shimmer-effect>
+                            <p id="part2-right-green" class="green-text">
+                                35.7401° N, 139.6924° E <br />northwestern Ring of Fire
+                                <br />surrounded by seas <br />40 m above sea level
+                                <br />10:51pm
+                            </p>
+                        </shimmer-effect>
                         <div class="part2-right">
                             <p id="pt2-a-2" class="text-justify">
                                 Her stomach growls. There’s a small patch of green outside her
@@ -1094,26 +928,32 @@
             </div>
             <div id="part3">
                 <div class="part3-A">
-                    <p class="text-justify effect-shine" id="part3A-topText">
-                        bread &ensp; silence &ensp; game &ensp; humidity &ensp; portraits
-                        &ensp; letters &ensp; tyres &ensp; pair &ensp; soft &ensp;
-                        geography &ensp; grass &ensp; call &ensp; corals &ensp; beer
-                        &ensp; play &ensp; boiled &ensp; egg &ensp; paper&ensp; cutouts
-                        &ensp; chair&ensp; crayons&ensp; bead &ensp; parks &ensp; milo
-                        &ensp; mold &ensp; optimism &ensp; spiral&ensp; leap&ensp;
-                        of&ensp; faith&ensp; dumplings &ensp; hibernation &ensp;
-                        banana&ensp; seaweed &ensp; sea&ensp; glass&ensp; telepathy&ensp;
-                        overcast&ensp; sound &ensp; timetable&ensp; circulation &ensp;
-                        mirrors &ensp; chubz &ensp; texture &ensp; lilies&ensp; grip
-                        &ensp; panadol &ensp; temporality&ensp; slippers &ensp; care&ensp;
-                        adventure &ensp; rebirth &ensp; noodles &ensp; hot&ensp; chocolate
-                        &ensp; compose&ensp; forgetting &ensp; youth &ensp; colour&ensp;
-                        time &ensp; humour&ensp; loyalty&ensp; hallucination&ensp;
-                        childishness&ensp; rhythm &ensp; palm&ensp; trees &ensp; tea
-                        &ensp; vinegar&ensp; stiff &ensp;
-                    </p>
-                    <img src="" alt="spiral word graphic" id="img-2" class="effect-shine" />
-                    <img src="" alt="spiral word graphic" id="img-3" />
+                    <shimmer-effect active>
+                        <p class="text-justify" id="part3A-topText">
+                            bread &ensp; silence &ensp; game &ensp; humidity &ensp; portraits
+                            &ensp; letters &ensp; tyres &ensp; pair &ensp; soft &ensp;
+                            geography &ensp; grass &ensp; call &ensp; corals &ensp; beer
+                            &ensp; play &ensp; boiled &ensp; egg &ensp; paper&ensp; cutouts
+                            &ensp; chair&ensp; crayons&ensp; bead &ensp; parks &ensp; milo
+                            &ensp; mold &ensp; optimism &ensp; spiral&ensp; leap&ensp;
+                            of&ensp; faith&ensp; dumplings &ensp; hibernation &ensp;
+                            banana&ensp; seaweed &ensp; sea&ensp; glass&ensp; telepathy&ensp;
+                            overcast&ensp; sound &ensp; timetable&ensp; circulation &ensp;
+                            mirrors &ensp; chubz &ensp; texture &ensp; lilies&ensp; grip
+                            &ensp; panadol &ensp; temporality&ensp; slippers &ensp; care&ensp;
+                            adventure &ensp; rebirth &ensp; noodles &ensp; hot&ensp; chocolate
+                            &ensp; compose&ensp; forgetting &ensp; youth &ensp; colour&ensp;
+                            time &ensp; humour&ensp; loyalty&ensp; hallucination&ensp;
+                            childishness&ensp; rhythm &ensp; palm&ensp; trees &ensp; tea
+                            &ensp; vinegar&ensp; stiff &ensp;
+                        </p>
+                    </shimmer-effect>
+                    <shimmer-effect active>
+                        <img src="" alt="spiral word graphic" id="img-2" />
+                    </shimmer-effect>
+                    <shimmer-effect active>
+                        <img src="" alt="spiral word graphic" id="img-3" />
+                    </shimmer-effect>
                     <p id="part3-fragmentA">They grow dizzy.</p>
                     <p id="part3-fragmentB">It could be seconds.</p>
                     <p id="part3-fragmentC">It could be years.</p>
@@ -1127,21 +967,23 @@
                         Black holes are bending light. <br />
                         Like the waves unfurling.
                     </p>
-                    <p id="part3A-bottomText" class="effect-shine">
-                        neck &ensp; retrieve &ensp; glitters &ensp; fear &ensp; music
-                        &ensp; resistance &ensp; wood &ensp; shadow &ensp; fascination
-                        &ensp; sleepiness &ensp; encounter &ensp; rocks &ensp; sore &ensp;
-                        muscle &ensp; leaf &ensp; wings &ensp; dependence &ensp; lotus
-                        &ensp; root &ensp; scarf &ensp; welcome &ensp; incense &ensp;
-                        cigarettes &ensp; shiny &ensp; floor &ensp; fingers &ensp; drawing
-                        &ensp; mountain &ensp; boredom &ensp; tea &ensp; cup &ensp;
-                        museums &ensp; dreams &ensp; rope &ensp; river &ensp; astrology
-                        &ensp; backpack &ensp; astrology &ensp; cold &ensp; chopsticks
-                        &ensp; organise &ensp; abandoned &ensp; house &ensp; tomato &ensp;
-                        egg &ensp; ocean &ensp; star &ensp; rebirth &ensp; tea &ensp;
-                        mosquitoes &ensp; abandoned &ensp; house &ensp; death &ensp; youth
-                        &ensp; astrology &ensp; dumplings &ensp;
-                    </p>
+                    <shimmer-effect active>
+                        <p id="part3A-bottomText">
+                            neck &ensp; retrieve &ensp; glitters &ensp; fear &ensp; music
+                            &ensp; resistance &ensp; wood &ensp; shadow &ensp; fascination
+                            &ensp; sleepiness &ensp; encounter &ensp; rocks &ensp; sore &ensp;
+                            muscle &ensp; leaf &ensp; wings &ensp; dependence &ensp; lotus
+                            &ensp; root &ensp; scarf &ensp; welcome &ensp; incense &ensp;
+                            cigarettes &ensp; shiny &ensp; floor &ensp; fingers &ensp; drawing
+                            &ensp; mountain &ensp; boredom &ensp; tea &ensp; cup &ensp;
+                            museums &ensp; dreams &ensp; rope &ensp; river &ensp; astrology
+                            &ensp; backpack &ensp; astrology &ensp; cold &ensp; chopsticks
+                            &ensp; organise &ensp; abandoned &ensp; house &ensp; tomato &ensp;
+                            egg &ensp; ocean &ensp; star &ensp; rebirth &ensp; tea &ensp;
+                            mosquitoes &ensp; abandoned &ensp; house &ensp; death &ensp; youth
+                            &ensp; astrology &ensp; dumplings &ensp;
+                        </p>
+                    </shimmer-effect>
                 </div>
                 <img id="img-4" src="" alt="Biyiniao, a bird from the Classics of the Mountains and the Seas"
                     class="biyiniao" />

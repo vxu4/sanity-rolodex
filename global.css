@@ -1,0 +1,14 @@
+:root {
+    /* global colors */
+    --black: #000000;
+    --white: #ffffff;
+    --grey: #595959;
+    --light-grey: #9E9E9E;
+    --red: #9E3B1B;
+    --yellow: #F7F7ED;
+    --yellow-95: rgba(247, 247, 237, .95);
+    --transparent: rgba(0, 0, 0, 0);
+
+    /* page specific colors */
+    --ec-qz-green: #298421;
+}

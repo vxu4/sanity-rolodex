@@ -1,100 +1,103 @@
 <html>
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-    <style>
-      body {
-        background-color: #f7f7ed;
-        width: 99%;
-        height: 95%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        padding-bottom: 3vh;
-      }
-      h1 {
-        font-family: "didot", serif;
-        font-style: italic;
-        font-weight: 200;
-        color: #9e3b1b;
-        font-size: 21px;
-      }
 
-      p {
-        font-family: "Noto Sans", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 200;
-        font-size: 14px;
-        font-style: normal;
-        font-variation-settings: "wdth" 100;
-        color: black;
-      }
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap"
+    rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style>
+    body {
+      background-color: var(--yellow);
+      width: 99%;
+      height: 95%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 3vh;
+    }
 
-      #bios-container {
-        margin-top: 100px;
-        width: 80vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
+    h1 {
+      font-family: "didot", serif;
+      font-style: italic;
+      font-weight: 200;
+      color: var(--red);
+      font-size: 21px;
+    }
 
-      .profile-pic {
-        width: 14vw;
-      }
+    p {
+      font-family: "Noto Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 200;
+      font-size: 14px;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+      color: var(--black);
+    }
 
-      .footer {
-        width: 80vw;
-      }
+    #bios-container {
+      margin-top: 100px;
+      width: 80vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      #footer-text {
-        font-size: 10px !important;
-        color: #9e3b1b;
-        font-family: "Noto Sans", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 200;
-        font-style: normal;
-        font-variation-settings: "wdth" 100;
-      }
+    .profile-pic {
+      width: 14vw;
+    }
 
-      .content-section-wrapper {
-        display: flex;
-        flex-direction: row;
-      }
+    .footer {
+      width: 80vw;
+    }
 
-      .content-section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 3vh 3vw;
-      }
+    #footer-text {
+      font-size: 10px !important;
+      color: var(--red);
+      font-family: "Noto Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 200;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+    }
 
-      .profile-pic {
-        width: 10vw;
-        margin-top: 1rem;
-      }
-    </style>
-  </head>
-  <body>
-    <script src="/components/dotnav.js"></script>
-    <dot-nav id="dotNav"></dot-nav>
+    .content-section-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
 
-    <div id="bios-container">
-      <p>Loading bio...</p>
-    </div>
-    <div class="footer">
-      <p id="footer-text"></p>
-    </div>
-    <script src="/rolobeings/script.js"></script>
-  </body>
+    .content-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 3vh 3vw;
+    }
+
+    .profile-pic {
+      width: 10vw;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="/components/dotnav.js"></script>
+  <dot-nav id="dotNav"></dot-nav>
+
+  <div id="bios-container">
+    <p>Loading bio...</p>
+  </div>
+  <div class="footer">
+    <p id="footer-text"></p>
+  </div>
+  <script src="/rolobeings/script.js"></script>
+</body>
+
 </html>

@@ -1,49 +1,10 @@
-
-// class ScrollFade extends HTMLElement {
-//     constructor() {
-//         super();
-
-//         this.attachShadow({ mode: "open" });
-
-//         this.shadowRoot.innerHTML = `
-//         <style>
-//         .scrollfade{
-//             -ms-overflow-style: none;
-//             /* IE/Edge */
-
-//             /* Create fade effect at top & bottom */
-//             -webkit-mask-image: linear-gradient(to bottom,
-//                 transparent,
-//                 black 20%,
-//                 black 80%,
-//                 transparent);
-//             -webkit-mask-repeat: no-repeat;
-//             -webkit-mask-size: 100% 100%;
-//             mask-image: linear-gradient(to bottom,
-//                 transparent,
-//                 black 20%,
-//                 black 80%,
-//                 transparent);
-//             mask-repeat: no-repeat;
-//             mask-size: 100% 100%;
-//             }
-//         </style>
-
-//         <div class="scrollfade">{TODO: how to let the parent component define the content?}</div>
-//       `;
-//     }
-// }
-
-// customElements.define("scroll-fade", ScrollFade);
-
-
 class FadeScroll extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: "open" });
 
-        this.shadowRoot.innerHTML = `
+    this.shadowRoot.innerHTML = `
       <style>
 
         :host {
@@ -95,7 +56,7 @@ class FadeScroll extends HTMLElement {
         </div>
       </div>
     `;
-    }
+  }
 }
 
 customElements.define("fade-scroll", FadeScroll);

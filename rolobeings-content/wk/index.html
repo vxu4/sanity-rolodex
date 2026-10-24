@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="../../global.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -47,7 +49,7 @@
       font-size: 14px;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: white;
+      color: var(--white);
       display: block;
       position: absolute;
       top: 2vh;
@@ -135,7 +137,8 @@
       right: 2vw;
       color: #f1f1f1;
       font-size: 40px;
-      font-weight: bold;
+      font-weight: thin;
+      font-family: "Noto Sans", sans-serif;
       transition: 0.3s;
     }
 
@@ -153,7 +156,7 @@
       align-items: center;
       position: relative;
       width: 100%;
-      height: 65vh;
+      height: 95vh;
     }
 
     .middle-image {
@@ -172,6 +175,7 @@
       margin: auto;
       display: none;
       width: 100vw;
+      height: 100vh;
       max-width: 100vw;
     }
 
@@ -180,6 +184,7 @@
       margin: auto;
       display: none;
       width: 100vw;
+      height: 100vh;
       max-width: 100vw;
     }
 
@@ -188,6 +193,7 @@
       margin: auto;
       display: none;
       width: 100vw;
+      height: 100vh;
       max-width: 100vw;
     }
 
@@ -198,7 +204,7 @@
       font-size: 14px;
       font-style: normal;
       font-variation-settings: "wdth" 100;
-      color: white;
+      color: var(--white);
       width: 45vw;
       position: absolute;
       top: 1vh;
@@ -223,48 +229,67 @@
       flex-direction: row;
       width: 58vw;
       justify-content: space-between;
-      align-items: end;
+      align-items: flex-end;
+
       position: absolute;
-      bottom: 20vh;
-      right: 5vw;
+      bottom: 5vh;
+      right: 2vw;
       height: 30vh;
     }
 
-    .ref-image {
+    /* .ref-image {
       width: 10vw;
       display: block;
       position: absolute;
       z-index: 35;
       cursor: pointer;
+    } */
+
+    .sticker-lineup draggable-component {
+      display: flex;
+      align-items: flex-end;
+      flex: 0 1 18%;
+      min-width: 0;
+      position: relative;
+    }
+
+    .sticker-lineup .ref-image {
+      position: static;
+      display: block;
+      width: 100%;
+      height: auto;
+      top: auto;
+      left: auto;
+    }
+
+    .sticker-lineup .ref-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .ref-image {
+      position: absolute;
+      top: 20vh;
+      left: 10vw;
+      width: 180px;
+      cursor: grab;
+    }
+
+    .ref-image:active {
+      cursor: grabbing;
+    }
+
+    .ref-image img {
+      display: block;
+      width: 10vw;
+      height: auto;
     }
 
     /* Sticker styling */
     .sticker {
       position: absolute;
       z-index: 35;
-    }
-
-    /* Sticker add button styling */
-    .sticker-button {
-      background-color: rgba(255, 255, 255, 0.1);
-      /* Semi-transparent white */
-      border: 1px solid white;
-      border-radius: 4px;
-      color: white;
-      padding: 1vh 1vw;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 14px;
-      cursor: pointer;
-      width: 12vw;
-      z-index: 999;
-      font-family: "Noto Sans", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 300;
-      font-size: 13px;
-      font-style: italic;
-      font-variation-settings: "wdth" 87.5;
     }
 
     @media screen and (min-width: 770px) {
@@ -293,6 +318,11 @@
 <body>
   <script src="/components/dotnav.js"></script>
   <script src="/components/entryDot.js"></script>
+  <script src="/components/draggable.js"></script>
+  <script src="/components/modal.js"></script>
+  <script src="/components/closeButton.js" defer></script>
+  <script src="/components/customButton.js" defer></script>
+
   <entry-dot id="entryDot"></entry-dot>
   <dot-nav id="dotNav"></dot-nav>
 
@@ -306,68 +336,95 @@
     <img as="image" class="orig-island" id="island-02" alt="small brown gem-island" />
     <img as="image" class="orig-island" id="island-03" alt="large green gem-island" />
     <!-- The Modal -->
-    <div id="myModal" class="modal">
-      <!-- The Close Button -->
-      <span class="close">×</span>
+    <modal-component id="island-modal">
+
       <!-- Modal Content (The Image) -->
       <div id="modal-content-01">
         <div class="caption">
           <p id="island-01-caption"></p>
-          <button style="left: 60vw" class="sticker-button" id="sticker-button-1" type="button">
-            + Add island sticker
-          </button>
+          <custom-button class="sticker-button" id="sticker-button-1" label="+ Add island sticker"></custom-button>
         </div>
         <div class="middle-image-container">
           <img class="middle-image" id="1" />
         </div>
         <div class="sticker-lineup" id="sticker-lineup-1">
-          <img style="left: 0vw" class="ref-image" id="ref-01-A" />
-          <img style="left: 12vw" class="ref-image" id="ref-01-B" />
-          <img style="left: 24vw" class="ref-image" id="ref-01-C" />
-          <img style="left: 36vw" class="ref-image" id="ref-01-D" />
-          <img style="left: 48vw" class="ref-image" id="ref-01-E" />
+          <draggable-component preserve-space>
+            <img style="left: 0vw" class="ref-image" id="ref-01-A" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 12vw" class="ref-image" id="ref-01-B" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 24vw" class="ref-image" id="ref-01-C" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 36vw" class="ref-image" id="ref-01-D" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 48vw" class="ref-image" id="ref-01-E" />
+          </draggable-component>
         </div>
       </div>
       <div id="modal-content-02">
         <div class="caption">
           <p id="island-02-caption"></p>
-          <button style="left: 60vw" class="sticker-button" id="sticker-button-2" type="button">
-            + Add island sticker
-          </button>
+          <custom-button class="sticker-button" id="sticker-button-2" label="+ Add island sticker"></custom-button>
         </div>
         <div class="middle-image-container">
           <img class="middle-image" id="2" />
         </div>
         <div class="sticker-lineup" id="sticker-lineup-2">
-          <img style="left: 0vw" class="ref-image" id="ref-02-A" />
-          <img style="left: 12vw" class="ref-image" id="ref-02-B" />
-          <img style="left: 24vw" class="ref-image" id="ref-02-C" />
-          <img style="left: 36vw" class="ref-image" id="ref-02-D" />
-          <img style="left: 48vw" class="ref-image" id="ref-02-E" />
+          <draggable-component preserve-space>
+            <img style="left: 0vw" class="ref-image" id="ref-02-A" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 12vw" class="ref-image" id="ref-02-B" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 24vw" class="ref-image" id="ref-02-C" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 36vw" class="ref-image" id="ref-02-D" />
+          </draggable-component>
+          <draggable-component preserve-space>
+            <img style="left: 48vw" class="ref-image" id="ref-02-E" />
+          </draggable-component>
         </div>
       </div>
       <div id="modal-content-03">
         <div class="caption">
           <p id="island-03-caption"></p>
-          <button style="left: 60vw" class="sticker-button" id="sticker-button-3" type="button">
-            + Add island sticker
-          </button>
+          <custom-button class="sticker-button" id="sticker-button-3" label="+ Add island sticker"></custom-button>
         </div>
         <div class="middle-image-container">
           <img class="middle-image" id="3" />
         </div>
         <div class="sticker-lineup" id="sticker-lineup-2">
-          <img style="left: 0vw" class="ref-image" id="ref-03-A" />
-          <img style="left: 12vw" class="ref-image" id="ref-03-B" />
-          <img style="left: 24vw" class="ref-image" id="ref-03-C" />
-          <img style="left: 36vw" class="ref-image" id="ref-03-D" />
-          <img style="left: 48vw" class="ref-image" id="ref-03-E" />
+          <draggable-component preserve-space>
+            <img class="ref-image" id="ref-03-A" />
+          </draggable-component preserve-space>
+
+          <draggable-component preserve-space>
+            <img class="ref-image" id="ref-03-B" />
+          </draggable-component>
+
+          <draggable-component preserve-space>
+            <img class="ref-image" id="ref-03-C" />
+          </draggable-component>
+
+          <draggable-component preserve-space>
+            <img class="ref-image" id="ref-03-D" />
+          </draggable-component>
+
+          <draggable-component preserve-space>
+            <img class="ref-image" id="ref-03-E" />
+          </draggable-component>
         </div>
       </div>
       <span class="letter o solid-circle o1 dot-container">
         <div class="finaldots" id="firstDotHide"></div>
       </span>
-    </div>
+    </modal-component>
   </div>
 
   <script src="/rolobeings-content/wk/script.js"></script>

@@ -41,6 +41,8 @@ const keywords = [
 ];
 let text = [];
 let hasClicked = false;
+let fullessay = false;
+
 
 // Fetch the data when the page loads
 async function fetchStories() {
@@ -72,7 +74,6 @@ async function fetchStories() {
 window.onload = function () {
   //Toggle script code
   const inputEl = document.getElementById("myInput");
-  let fullessay = false;
   // Trigger when input gets focus (selected)
   inputEl.addEventListener("click", onInputSelected);
 

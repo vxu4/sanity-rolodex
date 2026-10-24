@@ -103,7 +103,7 @@ function displayStories(results) {
 }
 
 // Get the modal
-var modal = document.getElementById("myModal");
+const modal = document.getElementById("island-modal");
 var projDescription = document.getElementById("proj-description");
 var origIsland01 = document.getElementById("island-01");
 var origIsland02 = document.getElementById("island-02");
@@ -132,7 +132,9 @@ island03.onclick = function () {
 function modalTrigger(num) {
   const dotNav = document.getElementById("dotNav");
 
-  modal.style.display = "block";
+  // modal.style.display = "block";
+  modal.showModal();
+
   if (num == 1) {
     modalContent01.style.display = "block";
   } else if (num == 2) {
@@ -147,104 +149,70 @@ function modalTrigger(num) {
   origIsland03.style.display = "none";
 }
 
-// Make ref-images draggable stickers
-var refImages = document.getElementsByClassName("ref-image");
-for (let i = 0; i < refImages.length; i++) {
-  dragElement(refImages[i]);
-}
-
-function dragElement(elmnt) {
-  var pos1 = 0,
-    pos2 = 0,
-    pos3 = 0,
-    pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-    elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
-  }
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-}
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-  modalContent01.style.display = "none";
-  modalContent02.style.display = "none";
-  modalContent03.style.display = "none";
+modal.addEventListener("modal-close", () => {
+  document.getElementById("modal-content-01").style.display = "none";
+  document.getElementById("modal-content-02").style.display = "none";
+  document.getElementById("modal-content-03").style.display = "none";
+
   projDescription.style.display = "block";
+
   origIsland01.style.display = "block";
   origIsland02.style.display = "block";
   origIsland03.style.display = "block";
-};
+});
 
 //Generate stickers based on which modal's sticker button is clicked
-const stickerButtonA = document.getElementById("sticker-button-1");
-stickerButtonA.addEventListener("click", function () {
-  generateStickers(1);
-});
-const stickerButtonB = document.getElementById("sticker-button-2");
-stickerButtonB.addEventListener("click", function () {
-  generateStickers(2);
-});
-const stickerButtonC = document.getElementById("sticker-button-3");
-stickerButtonC.addEventListener("click", function () {
-  generateStickers(3);
-});
+// const stickerButtonA = document.getElementById("sticker-button-1");
+// stickerButtonA.addEventListener("click", function () {
+//   generateStickers(1);
+// });
+// const stickerButtonB = document.getElementById("sticker-button-2");
+// stickerButtonB.addEventListener("click", function () {
+//   generateStickers(2);
+// });
+// const stickerButtonC = document.getElementById("sticker-button-3");
+// stickerButtonC.addEventListener("click", function () {
+//   generateStickers(3);
+// });
+document
+  .getElementById("sticker-button-1")
+  .addEventListener("button-click", () => {
+    generateStickers(1);
+  });
+
+document
+  .getElementById("sticker-button-2")
+  .addEventListener("button-click", () => {
+    generateStickers(2);
+  });
+
+document
+  .getElementById("sticker-button-3")
+  .addEventListener("button-click", () => {
+    generateStickers(3);
+  });
 
 // Generating stickers with button
 function generateStickers(num) {
   executed = true;
   const stickersrcs = [images[0].imageUrl, images[1].imageUrl, images[2].imageUrl];
-  const finaldots = document.querySelectorAll(".finaldots");
   const container = document.querySelector(".dot-container");
-  // Create and append sticker
   const sticker = document.createElement("img");
   sticker.src = stickersrcs[num - 1];
-  sticker.style.top = `${Math.random() * 100 - 15}%`;
-  sticker.style.left = `${Math.random() * 100 - 15}%`;
   sticker.classList.add("sticker");
+  sticker.style.width = "15vw";
   sticker.style.display = "block";
   sticker.style.cursor = "pointer";
-  sticker.className = "sticker";
-  sticker.style.width = "15vw";
 
-  //making sticker draggable
-  dragElement(sticker);
-  container.appendChild(sticker);
+  const draggable = document.createElement("draggable-component");
+
+  draggable.style.position = "absolute";
+  draggable.style.top = `${Math.random() * 100 - 15}%`;
+  draggable.style.left = `${Math.random() * 100 - 15}%`;
+
+  draggable.appendChild(sticker);
+  container.appendChild(draggable);
 }
 
 // Kick off the script
