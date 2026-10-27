@@ -1,5 +1,10 @@
 /**
  * Dot controls component, to implement: 
+ * HTML:
+ *   <script src="/components/controls.js"></script>
+ *   <dot-controls id="slideControls" color="black/white"></dot-controls>
+
+ * JAVA SCRIPT:
  * - in the parent component set the next/prev actions like this, w/ prevSlide and nextSlide being functions defined in the parent element
     * const controls = document.getElementById("slideControls");
     * controls.prevAction = prevSlide;
@@ -29,8 +34,36 @@ class DotControls extends HTMLElement {
   connectedCallback() {
     this.render();
     this.attachEvents();
+    this.updateColor();
     this.update();
   }
+
+  static get observedAttributes() {
+    return ["color"];
+  }
+  updateColor() {
+    const color = this.getAttribute("color") === "white"
+      ? "white"
+      : "black";
+
+    this.style.setProperty("--controls-color", color);
+
+    const pulseShadow = color === "white"
+      ? "rgba(255, 255, 255, 0.4)"
+      : "rgba(0, 0, 0, 0.4)";
+
+    const pulseShadowSoft = color === "white"
+      ? "rgba(255, 255, 255, 0.2)"
+      : "rgba(0, 0, 0, 0.2)";
+
+    this.style.setProperty("--pulse-shadow", pulseShadow);
+    this.style.setProperty("--pulse-shadow-soft", pulseShadowSoft);
+  }
+
+  attributeChangedCallback() {
+    this.updateColor();
+  }
+
 
   render() {
     const template = document.createElement("template");
@@ -54,7 +87,7 @@ class DotControls extends HTMLElement {
           margin: 2rem;
           width: 15px;
           height: 15px;
-          border: 1px solid black;
+          border: 1px solid var(--controls-color, black);
           border-radius: 50%;
           background: transparent;
           font-size: 0;
@@ -86,7 +119,7 @@ class DotControls extends HTMLElement {
         .pulse {
           width: 120px;
           height: 120px;
-          box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 10px 5px var(--pulse-shadow, rgba(0, 0, 0, 0.4));
           border-radius: 50%;
           animation: pulseScale 2s infinite ease-in-out;
           transform-origin: center;
@@ -95,17 +128,17 @@ class DotControls extends HTMLElement {
         @keyframes pulseScale {
           0% {
             transform: scale(1);
-            box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px 5px var(--pulse-shadow-soft, rgba(0, 0, 0, 0.2));
           }
 
           50% {
             transform: scale(1.2);
-            box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 10px 5px var(--pulse-shadow, rgba(0, 0, 0, 0.4));
           }
 
           100% {
             transform: scale(1);
-            box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px 5px var(--pulse-shadow-soft, rgba(0, 0, 0, 0.2));
           }
         }
 

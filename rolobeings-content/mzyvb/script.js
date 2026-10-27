@@ -40,12 +40,6 @@ let selectedEssay;
 let images = null;
 let fullessay = false;
 
-const interactiveText = document.getElementsByClassName(
-    "toggle-label-interactive",
-)[0];
-const essayText =
-    document.getElementsByClassName("toggle-label-essay")[0];
-
 const imageStartPts = [
     { top: "380px", left: "50px" },
     { top: "731px", left: "109px" },
@@ -415,21 +409,36 @@ function populateScreen() {
 
     // Create all puzzle pieces
     for (let i = 1; i < images.length; i++) {
-
-        const newPiece = `
-      <img
-        style="
-          width: ${imgWidths[i - 1]}px;
-          top: ${imageStartPts[i - 1].top};
-          left: ${imageStartPts[i - 1].left};
-        "
-        src="${images[i].imageUrl}"
-        alt="piece of the quilt to drag"
-        id="piece-${i}"
-        class="quilt-piece ${i < 11 ? "draggable" : "non-draggable"}"
-      />
-    `;
-
+        var newPiece;
+        if (i < 11) {
+            newPiece = `
+                <draggable-sticker class="ref-image">
+                    <img
+                        style="
+                        width: ${imgWidths[i - 1]}px;
+                        top: ${imageStartPts[i - 1].top};
+                        left: ${imageStartPts[i - 1].left};
+                        z-index: 999;
+                        "
+                        src="${images[i].imageUrl}"
+                        alt="piece of the quilt to drag"
+                        id="piece-${i}"
+                        class="quilt-piece"
+                    />
+                </draggable-sticker>`
+        } else {
+            newPiece = `<img
+                style="
+                width: ${imgWidths[i - 1]}px;
+                top: ${imageStartPts[i - 1].top};
+                left: ${imageStartPts[i - 1].left};
+                "
+                src="${images[i].imageUrl}"
+                alt="piece of the quilt to drag"
+                id="piece-${i}"
+                class="quilt-piece"
+            />`
+        }
         puzzleCanvas.insertAdjacentHTML("beforeend", newPiece);
     }
 
@@ -604,8 +613,8 @@ function dragElement(elmnt) {
             // const targetTop =
             //   (limits.topLowerlim + limits.topUpperLim) / 2;
 
-            // elmnt.style.left = `${targetLeft}px`;
-            // elmnt.style.top = `${targetTop}px`;
+            // elmnt.style.left = `${ targetLeft } px`;
+            // elmnt.style.top = `${ targetTop } px`;
         }
 
     }
@@ -636,24 +645,24 @@ function populateArchive() {
     const index = document.getElementById("archive-index");
     index.innerHTML = "";
     for (let i = 0; i < herbData.length; i++) {
-        const title = `<p id="title-${i}" class="index-title subtitle">${herbData[i].name}</p>`;
+        const title = `< p id = "title-${i}" class="index-title subtitle" > ${herbData[i].name}</p > `;
         index.innerHTML += title;
 
     }
-    index.innerHTML += `<p style="margin-top: 0;">_______________</p>`;
-    index.innerHTML += `<p id="title-${herbData.length}" class="index-title subtitle">Pinwheel</p>`;
+    index.innerHTML += `< p style = "margin-top: 0;" > _______________</p > `;
+    index.innerHTML += `< p id = "title-${herbData.length}" class="index-title subtitle" > Pinwheel</p > `;
     for (let i = 0; i < herbData.length + 1; i++) {
-        document.getElementById(`title-${i}`).addEventListener("mouseover", () => {
-            document.getElementById(`title-${i}`).classList.add("green-text");
+        document.getElementById(`title - ${i} `).addEventListener("mouseover", () => {
+            document.getElementById(`title - ${i} `).classList.add("green-text");
         });
-        document.getElementById(`title-${i}`).addEventListener("mouseout", () => {
+        document.getElementById(`title - ${i} `).addEventListener("mouseout", () => {
             if (selectedEssay !== i) {
-                document.getElementById(`title-${i}`).classList.remove("green-text");
+                document.getElementById(`title - ${i} `).classList.remove("green-text");
             }
         });
-        document.getElementById(`title-${i}`).addEventListener("click", () => {
-            document.getElementById(`title-${selectedEssay}`).classList.remove("green-text");
-            document.getElementById(`title-${i}`).classList.add("green-text");
+        document.getElementById(`title - ${i} `).addEventListener("click", () => {
+            document.getElementById(`title - ${selectedEssay} `).classList.remove("green-text");
+            document.getElementById(`title - ${i} `).classList.add("green-text");
             selectEssay(i);
         });
     }
@@ -664,15 +673,15 @@ function populateArchive() {
 
 function selectEssay(num) {
     if (num === herbData.length) {
-        document.getElementById("essay-wrapper").innerHTML = `<div style="display: flex; flex-direction: column; align-items: center;">           <p id="herb-name" class="subtitle">Pinwheel</p>
-<img style="height: 45vh" src="https://static.wixstatic.com/media/2fa7ac_b7717354984c402bb4bdad2171cf8e75~mv2.jpg" alt="Pinwheel" /> <p class='body-text' style="margin-top: 9vh;">This quilt square is part of a larger quilt made in a 2024 collaboration between Diana Nucera and Miranda Zhen-Yao Van-Boswell. </p></div>`;
+        document.getElementById("essay-wrapper").innerHTML = `< div style = "display: flex; flex-direction: column; align-items: center;" >           <p id="herb-name" class="subtitle">Pinwheel</p>
+<img style="height: 45vh" src="https://static.wixstatic.com/media/2fa7ac_b7717354984c402bb4bdad2171cf8e75~mv2.jpg" alt="Pinwheel" /> <p class='body-text' style="margin-top: 9vh;">This quilt square is part of a larger quilt made in a 2024 collaboration between Diana Nucera and Miranda Zhen-Yao Van-Boswell. </p></div > `;
     } else {
-        if (!document.getElementById(`title-${num}`).classList.contains("green-text")) {
+        if (!document.getElementById(`title - ${num} `).classList.contains("green-text")) {
             document.getElementsByClassName("green-text")[0]?.classList.remove("green-text");
-            document.getElementById(`title-${num}`).classList.add("green-text");
+            document.getElementById(`title - ${num} `).classList.add("green-text");
         }
         if (selectedEssay === herbData.length) {
-            document.getElementById("essay-wrapper").innerHTML = `<p id="herb-name" class="subtitle">Dandelion</p>
+            document.getElementById("essay-wrapper").innerHTML = `< p id = "herb-name" class="subtitle" > Dandelion</p >
           <img id="title-img" src="" alt=' ' class="herb-image" />
           <br />
           <br />
@@ -682,7 +691,7 @@ function selectEssay(num) {
         }
         document.getElementById("herb-name").innerText = herbData[num].name;
         document.getElementById("title-img").src = herbData[num].image[0].imageUrl;
-        document.getElementById("publish-date").innerHTML = `First published ${herbData[num].date}`;
+        document.getElementById("publish-date").innerHTML = `First published ${herbData[num].date} `;
 
         const herbContent = document.getElementById("herb-content");
         herbContent.innerHTML = "";
@@ -693,13 +702,13 @@ function selectEssay(num) {
         for (let i = 0; i < herbData[num].mapping.length; i += 2) {
             if (herbData[num].mapping[i] == "text") {
                 for (let a = 0; a < herbData[num].mapping[i + 1]; a++) {
-                    herbContent.innerHTML += `<p class="body-text">${herbData[num].text[textArrayNum]}</p>`;
+                    herbContent.innerHTML += `< p class="body-text" > ${herbData[num].text[textArrayNum]}</p > `;
                     textArrayNum++;
                 }
             }
             if (herbData[num].mapping[i] == "image") {
                 for (let b = 0; b < herbData[num].mapping[i + 1]; b++) {
-                    herbContent.innerHTML += `<img class="body-img" src=${herbData[num].image[imgArrayNum].imageUrl} />`;
+                    herbContent.innerHTML += `< img class="body-img" src = ${herbData[num].image[imgArrayNum].imageUrl} />`;
                     imgArrayNum++;
                 }
             }
@@ -717,28 +726,13 @@ function selectEssay(num) {
 
 
 // Attach event listeners after DOM loads
-function displayStories(results) {
+function displayStories() {
 
-    const inputEl =
-        document.getElementById("myInput");
-
-
-    // -------------------------------------------------------
-    // TOGGLE BETWEEN INTERACTIVE / ESSAY
-    // -------------------------------------------------------
-
-    inputEl.addEventListener("click", onInputSelected);
-
-
-    function onInputSelected() {
-
+    const toggle = document.querySelector("essay-toggle");
+    toggle.addEventListener("toggle-change", () => {
         fullessay = !fullessay;
 
         if (fullessay) {
-
-            essayText.classList.add("italic");
-            interactiveText.classList.remove("italic");
-
             interactiveView.classList.remove("show");
             interactiveView.classList.add("hidden");
             document.getElementById("gen-body").style.backgroundImage = "url()";
@@ -747,13 +741,7 @@ function displayStories(results) {
 
             archiveView.classList.remove("hidden");
             archiveView.classList.add("show");
-
-
         } else {
-
-            essayText.classList.remove("italic");
-            interactiveText.classList.add("italic");
-
             archiveView.classList.remove("show");
             archiveView.classList.add("hidden");
             document.getElementById("gen-body").style.backgroundImage = "url(https://static.wixstatic.com/media/2fa7ac_e14ea4777657472b970da0e92f871751~mv2.jpg)";
@@ -764,7 +752,7 @@ function displayStories(results) {
             // Recalculate scale when returning to puzzle
             scalePuzzle();
         }
-    }
+    });
 
     if (herbData !== null) {
         // -------------------------------------------------------

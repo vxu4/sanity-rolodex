@@ -206,40 +206,27 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-
-
-const interactiveText = document.getElementsByClassName(
-  "toggle-label-interactive",
-)[0];
-const essayText = document.getElementsByClassName("toggle-label-essay")[0];
-
 // Attach event listeners after DOM loads
 function displayStories(results) {
-  const inputEl = document.getElementById("myInput");
+
+  const toggle = document.querySelector("essay-toggle");
   const slides = results.textFragments;
 
   updateSlide();
 
   // Trigger when input gets focus (selected)
-  inputEl.addEventListener("click", onInputSelected);
-
-  // Function to run when input is selected (focused)
-  function onInputSelected() {
-    // nextBtn.classList.remove("pulse");
+  toggle.addEventListener("toggle-change", () => {
     fullessay = !fullessay;
     updateSlide();
     if (fullessay) {
-      essayText.classList.add("italic");
-      interactiveText.classList.remove("italic");
       controls.prevDisabled = true;
       controls.nextDisabled = true;
     } else {
-      essayText.classList.remove("italic");
-      interactiveText.classList.add("italic");
       controls.prevDisabled = currentSlide === 0;
       controls.nextDisabled = currentSlide === slides.length - 1;
     }
-  }
+  });
+
   for (let i = 0; i < results.images.length - 1; i++) {
     document.getElementById(`fish-line-${i}`).src = results.images[i].imageUrl;
     if (i > 0) {

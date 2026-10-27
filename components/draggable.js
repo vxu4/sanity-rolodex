@@ -85,8 +85,9 @@ class Draggable extends HTMLElement {
         this.style.width = `${rect.width}px`;
         this.style.height = `${rect.height}px`;
         this.style.flex = "none";
-        this.style.zIndex = "1000";
+        this.style.zIndex = "999";
         this.style.cursor = "grabbing";
+        console.log(this);
 
         this.setPointerCapture(event.pointerId);
 

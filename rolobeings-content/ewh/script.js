@@ -72,24 +72,17 @@ async function fetchStories() {
 }
 
 window.onload = function () {
-  //Toggle script code
-  const inputEl = document.getElementById("myInput");
-  // Trigger when input gets focus (selected)
-  inputEl.addEventListener("click", onInputSelected);
+  const toggle = document.querySelector("essay-toggle");
 
-  // Function to run when input is selected (focused)
-  function onInputSelected() {
-    fullessay = !fullessay;
+  toggle.addEventListener("toggle-change", (event) => {
+    const fullessay = event.detail.fullEssay;
+
     if (fullessay) {
       displayFullEssay();
-      essayText.classList.add("italic");
-      interactiveText.classList.remove("italic");
     } else {
       displayText();
-      essayText.classList.remove("italic");
-      interactiveText.classList.add("italic");
     }
-  }
+  });
 };
 
 // Function to safely get element position relative to the container

@@ -1,13 +1,57 @@
+// HOW TO USE: 
 
+// HTML:
+//   <script src="/components/rolodexTitle.js"></script>
+//   <script src="/components/mobileOverlay.js"></script>
+//   <mobile-overlay class="mobile-only"></mobile-overlay>
+
+/** CSS: 
+    .mobile-only {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 999;
+      position: absolute;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--grey);
+    }
+
+    @media (min-width: 769px) {
+      .mobile-only {
+        display: none;
+      }
+    }
+
+    @media (max-width: 769px) {
+      .header {
+        display: none;
+      }
+
+      .container {
+        display: none;
+      }
+
+      .footer {
+        display: none;
+      }
+
+      .mobile-only {
+        display: flex;
+      }
+    } 
+*/
 
 
 class MobileOverlay extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: "open" });
 
-        this.shadowRoot.innerHTML = `
+    this.shadowRoot.innerHTML = `
     <style>
       p {
         font-family: Arial, Helvetica, sans-serif;
@@ -29,6 +73,7 @@ class MobileOverlay extends HTMLElement {
         justify-content: center;
         align-items: center;
         color: var(--grey);
+        background-color: var(--yellow);
       }
 
       .redirect-message {
@@ -62,9 +107,8 @@ class MobileOverlay extends HTMLElement {
         padding: 0rem 2rem;
       }
     </style>
-      <script src="/components/rolodexTitle.js"></script>
-        <div class="mobile-only">
-        <rolodex-title></rolodex-title>
+      <div class="mobile-only">
+      <rolodex-title></rolodex-title>
       <div class="rolodex" id="alldots"> </div>
 
       <p class="redirect-message">
@@ -90,47 +134,47 @@ class MobileOverlay extends HTMLElement {
       </div>
     </div>
     `;
-    }
+  }
 
-    connectedCallback() {
-        this.attachEvents();
-    }
+  connectedCallback() {
+    this.attachEvents();
+  }
 
 
-    attachEvents() {
-        /**
-         * Formats a number to always have two digits (e.g., 5 -> "05")
-         */
-        const padZero = (num) => num.toString().padStart(2, "0");
+  attachEvents() {
+    /**
+     * Formats a number to always have two digits (e.g., 5 -> "05")
+     */
+    const padZero = (num) => num.toString().padStart(2, "0");
 
-        /**
-         * Updates the UTC clock every second
-         */
-        const updateUTCClock = () => {
-            const clock = this.shadowRoot.querySelector("#utcClock");
+    /**
+     * Updates the UTC clock every second
+     */
+    const updateUTCClock = () => {
+      const clock = this.shadowRoot.querySelector("#utcClock");
 
-            if (!clock) {
-                console.warn("UTC clock element not found");
-                return;
-            }
+      if (!clock) {
+        console.warn("UTC clock element not found");
+        return;
+      }
 
-            const now = new Date();
-            const hours = padZero(now.getUTCHours());
-            const minutes = padZero(now.getUTCMinutes());
-            const seconds = padZero(now.getUTCSeconds());
+      const now = new Date();
+      const hours = padZero(now.getUTCHours());
+      const minutes = padZero(now.getUTCMinutes());
+      const seconds = padZero(now.getUTCSeconds());
 
-            clock.textContent = `${hours}:${minutes}:${seconds} UTC`;
-        };
+      clock.textContent = `${hours}:${minutes}:${seconds} UTC`;
+    };
 
-        // Update immediately, then every second
-        updateUTCClock();
-        this._clockInterval = setInterval(updateUTCClock, 1000);
-    }
+    // Update immediately, then every second
+    updateUTCClock();
+    this._clockInterval = setInterval(updateUTCClock, 1000);
+  }
 
-    disconnectedCallback() {
-        // Clean up the interval when the component is removed
-        clearInterval(this._clockInterval);
-    }
+  disconnectedCallback() {
+    // Clean up the interval when the component is removed
+    clearInterval(this._clockInterval);
+  }
 
 }
 

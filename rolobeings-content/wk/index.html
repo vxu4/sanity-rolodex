@@ -312,6 +312,44 @@
         left: 3vw;
       }
     }
+
+    /* Mobile overlay CSS */
+    .mobile-only {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 999;
+      position: absolute;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--grey);
+    }
+
+    @media (min-width: 769px) {
+      .mobile-only {
+        display: none;
+      }
+    }
+
+    @media (max-width: 769px) {
+      .header {
+        display: none;
+      }
+
+      .container {
+        display: none;
+      }
+
+      .footer {
+        display: none;
+      }
+
+      .mobile-only {
+        display: flex;
+      }
+    }
   </style>
 </head>
 
@@ -322,7 +360,10 @@
   <script src="/components/modal.js"></script>
   <script src="/components/closeButton.js" defer></script>
   <script src="/components/customButton.js" defer></script>
+  <script src="/components/rolodexTitle.js"></script>
+  <script src="/components/mobileOverlay.js"></script>
 
+  <mobile-overlay class="mobile-only"></mobile-overlay>
   <entry-dot id="entryDot"></entry-dot>
   <dot-nav id="dotNav"></dot-nav>
 

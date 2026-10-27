@@ -45,87 +45,6 @@
             left: 700px;
         }
 
-        /* Toggle styling */
-        .toggle {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            position: absolute;
-            z-index: 99;
-            right: 1rem;
-            top: 1rem;
-            font-family: "Noto Sans", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 300;
-            font-size: 13px;
-            font-style: normal;
-            font-variation-settings: "wdth" 87.5;
-        }
-
-        /* The box around the toggle */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 2rem;
-            height: 0.9rem;
-            margin: 0rem 0.4rem;
-        }
-
-        /* Hide default HTML checkbox */
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        /* The slider */
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--light-grey);
-            -webkit-transition: 0.4s;
-            transition: 0.4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 0.7rem;
-            width: 0.7rem;
-            left: 0.1rem;
-            bottom: 0.1rem;
-            background-color: var(--white);
-            -webkit-transition: 0.4s;
-            transition: 0.4s;
-        }
-
-        input:checked+.slider {
-            background-color: var(--light-grey);
-        }
-
-        input:focus+.slider {
-            box-shadow: 0 0 1px var(--light-grey);
-        }
-
-        input:checked+.slider:before {
-            -webkit-transform: translateX(1.1rem);
-            -ms-transform: translateX(1.1rem);
-            transform: translateX(1.1rem);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-
         .italic {
             font-style: italic;
         }
@@ -216,6 +135,7 @@
    * something it should drag as a normal image.
    */
             user-select: none;
+            -webkit-user-select: none;
             -webkit-user-drag: none;
         }
 
@@ -332,8 +252,19 @@
 
         }
 
-        .draggable {
-            z-index: 40;
+        .ref-image {
+            position: absolute;
+            cursor: grab;
+        }
+
+        .ref-image:active {
+            cursor: grabbing;
+        }
+
+        .ref-image img {
+            display: block;
+            width: 100%;
+            height: auto;
         }
 
         /* Archive view */
@@ -354,6 +285,7 @@
             position: absolute;
             top: 13vh;
             left: 2vw;
+            z-index: 300;
         }
 
         .index-title {
@@ -473,6 +405,44 @@
         #title-img {
             height: 65vh;
         }
+
+        /* Mobile overlay CSS */
+        .mobile-only {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 999;
+            position: absolute;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--grey);
+        }
+
+        @media (min-width: 769px) {
+            .mobile-only {
+                display: none;
+            }
+        }
+
+        @media (max-width: 769px) {
+            .header {
+                display: none;
+            }
+
+            .container {
+                display: none;
+            }
+
+            .footer {
+                display: none;
+            }
+
+            .mobile-only {
+                display: flex;
+            }
+        }
     </style>
 </head>
 
@@ -481,17 +451,15 @@
     <script src="/components/dotnav.js"></script>
     <script src="/components/entryDot.js"></script>
     <script src="/components/scrollFade.js"></script>
+    <script src="/components/essayToggle.js" defer></script>
+    <script src="/components/draggable.js" defer></script>
+    <script src="/components/rolodexTitle.js"></script>
+    <script src="/components/mobileOverlay.js"></script>
 
+    <mobile-overlay class="mobile-only"></mobile-overlay>
     <entry-dot id="entryDot"></entry-dot>
     <dot-nav id="dotNav"></dot-nav>
-    <div class="toggle">
-        <p class="toggle-label-interactive italic">interactive read</p>
-        <label class="switch">
-            <input id="myInput" type="checkbox" />
-            <span class="slider round"></span>
-        </label>
-        <p class="toggle-label-essay">full archive</p>
-    </div>
+    <essay-toggle></essay-toggle>
 
     <div class="body">
         <div id="interactive-view" class="show">
